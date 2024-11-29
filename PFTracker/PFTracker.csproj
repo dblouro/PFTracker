@@ -297,6 +297,7 @@
     <Content Include="js\wizard.js" />
     <Content Include="js\x-editable.js" />
     <Content Include="Login.aspx" />
+    <Content Include="Pagina_de_teste.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="vendors\chart.js\Chart.min.js" />
     <Content Include="vendors\codemirror\ambiance.css" />
@@ -845,6 +846,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pagina_de_teste.aspx.cs">
+      <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pagina_de_teste.aspx.designer.cs">
+      <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
