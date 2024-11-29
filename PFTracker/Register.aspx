@@ -32,28 +32,35 @@
                                 <h3 class="card-title text-left mb-3">Register</h3>
                                 <div>
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control p_input"/>
+                                        <label>Utilizador</label>
+                                        <asp:TextBox ID="tb_utilizador" runat="server" class="form-control p_input"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" class="form-control p_input"/>
+                                        <asp:TextBox ID="tb_email" runat="server" class="form-control p_input"></asp:TextBox>
+
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control p_input"/>
+                                        <asp:TextBox ID="tb_pw" runat="server" class="form-control p_input" TextMode="Password"></asp:TextBox>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirmar Password</label>
+                                        <asp:TextBox ID="tb_cfpw" runat="server" class="form-control p_input" TextMode="Password"></asp:TextBox>
+
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input"/>
+                                                <input type="checkbox" class="form-check-input" />
                                                 Remember me
                                             </label>
                                         </div>
                                         <a href="#" class="forgot-pass">Forgot password</a>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                                        <asp:Button ID="btn_registar" runat="server" CssClass="btn btn-primary btn-block enter-btn" Text="Registar Conta"/>
                                     </div>
                                     <div class="d-flex">
                                         <button class="btn btn-facebook col mr-2">
