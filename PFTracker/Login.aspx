@@ -52,7 +52,7 @@
                                         <asp:Button ID="btn_facebook" runat="server" Class="btn btn-facebook mr-2 col" Text="Facebook" />
                                         <asp:Button ID="btn_google" runat="server" Class="btn btn-google col" Text="Google"/>
                                     </div>
-                                    <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p>
+                                    <p class="sign-up">Don't have an Account?<a href="Registar.aspx"> Sign Up</a></p>
                                 </div>
                             </div>
                         </div>

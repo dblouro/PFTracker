@@ -70,7 +70,7 @@
                                             <i class="mdi mdi-google-plus"></i>Google plus
                                         </button>
                                     </div>
-                                    <p class="sign-up text-center">Already have an Account?<a href="#"> Sign Up</a></p>
+                                    <p class="sign-up text-center">Already have an Account?<a href="Login.aspx"> Sign Up</a></p>
                                     <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
                                 </div>
                             </div>
