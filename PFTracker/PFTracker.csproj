@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChangePW.aspx" />
     <Content Include="Consulta.aspx" />
     <Content Include="css\style.css" />
     <Content Include="Home.aspx" />
@@ -303,6 +304,8 @@
     <Content Include="Pagina_de_teste.aspx" />
     <Content Include="RecoverPW.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Relatorios.aspx" />
+    <Content Include="ResetPW.aspx" />
     <Content Include="vendors\chart.js\Chart.min.js" />
     <Content Include="vendors\codemirror\ambiance.css" />
     <Content Include="vendors\codemirror\codemirror.css" />
@@ -844,6 +847,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePW.aspx.cs">
+      <DependentUpon>ChangePW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePW.aspx.designer.cs">
+      <DependentUpon>ChangePW.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -879,6 +889,20 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios.aspx.cs">
+      <DependentUpon>Relatorios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorios.aspx.designer.cs">
+      <DependentUpon>Relatorios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPW.aspx.cs">
+      <DependentUpon>ResetPW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPW.aspx.designer.cs">
+      <DependentUpon>ResetPW.aspx</DependentUpon>
     </Compile>
     <Compile Include="Template.Master.cs">
       <DependentUpon>Template.Master</DependentUpon>
