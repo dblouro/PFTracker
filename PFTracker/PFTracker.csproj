@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChangePW.aspx" />
     <Content Include="css\style.css" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
@@ -298,7 +299,9 @@
     <Content Include="js\x-editable.js" />
     <Content Include="Login.aspx" />
     <Content Include="Pagina_de_teste.aspx" />
+    <Content Include="RecoverPW.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="ResetPW.aspx" />
     <Content Include="vendors\chart.js\Chart.min.js" />
     <Content Include="vendors\codemirror\ambiance.css" />
     <Content Include="vendors\codemirror\codemirror.css" />
@@ -840,6 +843,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePW.aspx.cs">
+      <DependentUpon>ChangePW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePW.aspx.designer.cs">
+      <DependentUpon>ChangePW.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -855,6 +865,13 @@
       <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecoverPW.aspx.cs">
+      <DependentUpon>RecoverPW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecoverPW.aspx.designer.cs">
+      <DependentUpon>RecoverPW.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -862,8 +879,16 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ResetPW.aspx.cs">
+      <DependentUpon>ResetPW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPW.aspx.designer.cs">
+      <DependentUpon>ResetPW.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Template.Master.cs">
       <DependentUpon>Template.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Template.Master.designer.cs">
       <DependentUpon>Template.Master</DependentUpon>

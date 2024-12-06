@@ -6,33 +6,27 @@ using System.Data;
 using System.Linq;
 using System.Net.Mail;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net;
 
 namespace PFTracker
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class RecoverPW : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void btn_registar_Click(object sender, EventArgs e)
+        protected void btn_enviar_Click(object sender, EventArgs e)
         {
             SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 
             //variaveis de inpout
-            myCommand.Parameters.AddWithValue("@util", tb_utilizador.Text);
-            myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
             myCommand.Parameters.AddWithValue("@email", tb_email.Text);
-            myCommand.Parameters.AddWithValue("@movel", tb_movel.Text);
-            myCommand.Parameters.AddWithValue("@codPerfil", ddl_perfil.SelectedValue);
 
             //variaveis de ouput1
             SqlParameter valor = new SqlParameter();
@@ -42,8 +36,11 @@ namespace PFTracker
 
             myCommand.Parameters.Add(valor);
 
+
+
+
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_registo_com_ativacao";
+            myCommand.CommandText = "LO_recuperarPW";
 
             myCommand.Connection = myConn;
 
@@ -53,11 +50,12 @@ namespace PFTracker
             //apanhar o valor do retorno
             int respostaSP = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
 
+
             myConn.Close();
             if (respostaSP == 1)
             {
-                lbl_mensagem.Text = "Utilizador criado com sucesso, verifique o seu email para ativar a conta";
-
+                lbl_mensagem.Text = "Email correspondido com sucesso, verifique o seu email para recuperar a Palavra-Passe";
+                lbl_mensagem.ForeColor = System.Drawing.Color.Green;
                 //envio do email
                 MailMessage m = new MailMessage();
                 SmtpClient sc = new SmtpClient();
@@ -66,10 +64,10 @@ namespace PFTracker
                 {
                     m.From = new MailAddress("Diogo.Louro.T0127776@edu.atec.pt");
                     m.To.Add(new MailAddress(tb_email.Text));
-                    m.Subject = "Ativação de conta";
+                    m.Subject = "Recuperação de Senha";
                     m.IsBodyHtml = true;
 
-                    m.Body = $"A sua conta foi ativada, clique <a href='https://localhost:44308/Login.aspx?util={EncryptString(tb_utilizador.Text)}' >aqui</a>";
+                    m.Body = $"Para recuperar a sua senha, clique <a href='https://localhost:44308/ResetPW.aspx?util={EncryptString(tb_email.Text)}' >aqui</a>";
 
                     sc.Host = "smtp.office365.com";
                     //sc.Host = "smtp-mail.outlook.com";
@@ -86,7 +84,8 @@ namespace PFTracker
             }
             else
             {
-                lbl_mensagem.Text = "utilizador ou pw errados";
+                lbl_mensagem.Text = "Email não existente";
+                lbl_mensagem.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -134,36 +133,6 @@ namespace PFTracker
             enc = enc.Replace("/", "JJJ");
             enc = enc.Replace("\\", "III");
             return enc;
-        }
-
-        protected void tb_pw_TextChanged(object sender, EventArgs e)
-        {
-            string estado = "forte";
-            Regex maiusculas = new Regex("[A-Z]");
-            Regex minusculas = new Regex("[a-z]");
-            Regex numeros = new Regex("[0-9]");
-            Regex especiais = new Regex("[^A-Za-z0-9]");
-            Regex plica = new Regex("'");
-
-            if (tb_pw.Text.Length < 6)
-                estado = "fraco";
-
-            if (maiusculas.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (minusculas.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (numeros.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (especiais.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (plica.Matches(tb_pw.Text).Count > 0)
-                estado = "fraco";
-
-            lbl_validar.Text = estado;
         }
     }
 }

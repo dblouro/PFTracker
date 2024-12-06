@@ -4,37 +4,39 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
-using System.Net.Mail;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net;
 
 namespace PFTracker
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class ChangePW : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Utilizador"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
-        protected void btn_registar_Click(object sender, EventArgs e)
+        protected void btn_alterar_Click(object sender, EventArgs e)
         {
+            string utilizador = Session["utilizador"].ToString();
+            string pwAtual = EncryptString(tb_pwAtual.Text);
+            string pwNova = EncryptString(tb_pwNova.Text);
+
             SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 
             //variaveis de inpout
-            myCommand.Parameters.AddWithValue("@util", tb_utilizador.Text);
-            myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
-            myCommand.Parameters.AddWithValue("@email", tb_email.Text);
-            myCommand.Parameters.AddWithValue("@movel", tb_movel.Text);
-            myCommand.Parameters.AddWithValue("@codPerfil", ddl_perfil.SelectedValue);
+            myCommand.Parameters.AddWithValue("@util", utilizador);
+            myCommand.Parameters.AddWithValue("@pwAtual", EncryptString(tb_pwAtual.Text));
+            myCommand.Parameters.AddWithValue("@pwNova", EncryptString(tb_pwNova.Text));
 
-            //variaveis de ouput1
+            //variaveis de ouput
             SqlParameter valor = new SqlParameter();
             valor.ParameterName = "@retorno";
             valor.Direction = ParameterDirection.Output;
@@ -42,8 +44,9 @@ namespace PFTracker
 
             myCommand.Parameters.Add(valor);
 
+
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_registo_com_ativacao";
+            myCommand.CommandText = "LO_alterarPW";
 
             myCommand.Connection = myConn;
 
@@ -52,41 +55,14 @@ namespace PFTracker
 
             //apanhar o valor do retorno
             int respostaSP = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-
             myConn.Close();
             if (respostaSP == 1)
             {
-                lbl_mensagem.Text = "Utilizador criado com sucesso, verifique o seu email para ativar a conta";
-
-                //envio do email
-                MailMessage m = new MailMessage();
-                SmtpClient sc = new SmtpClient();
-
-                try
-                {
-                    m.From = new MailAddress("Diogo.Louro.T0127776@edu.atec.pt");
-                    m.To.Add(new MailAddress(tb_email.Text));
-                    m.Subject = "Ativação de conta";
-                    m.IsBodyHtml = true;
-
-                    m.Body = $"A sua conta foi ativada, clique <a href='https://localhost:44308/Login.aspx?util={EncryptString(tb_utilizador.Text)}' >aqui</a>";
-
-                    sc.Host = "smtp.office365.com";
-                    //sc.Host = "smtp-mail.outlook.com";
-                    sc.Port = 587;
-                    sc.Credentials = new System.Net.NetworkCredential("Diogo.Louro.T0127776@edu.atec.pt", "sPsrA3zp");
-
-                    sc.EnableSsl = true;
-                    sc.Send(m);
-                }
-                catch (Exception ex)
-                {
-                    lbl_mensagem.Text = ex.Message;
-                }
+                lbl_mensagem.Text = "pw atualizada com sucesso";
             }
             else
             {
-                lbl_mensagem.Text = "utilizador ou pw errados";
+                lbl_mensagem.Text = "pw já existente!";
             }
         }
 
@@ -134,36 +110,6 @@ namespace PFTracker
             enc = enc.Replace("/", "JJJ");
             enc = enc.Replace("\\", "III");
             return enc;
-        }
-
-        protected void tb_pw_TextChanged(object sender, EventArgs e)
-        {
-            string estado = "forte";
-            Regex maiusculas = new Regex("[A-Z]");
-            Regex minusculas = new Regex("[a-z]");
-            Regex numeros = new Regex("[0-9]");
-            Regex especiais = new Regex("[^A-Za-z0-9]");
-            Regex plica = new Regex("'");
-
-            if (tb_pw.Text.Length < 6)
-                estado = "fraco";
-
-            if (maiusculas.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (minusculas.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (numeros.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (especiais.Matches(tb_pw.Text).Count == 0)
-                estado = "fraco";
-
-            if (plica.Matches(tb_pw.Text).Count > 0)
-                estado = "fraco";
-
-            lbl_validar.Text = estado;
         }
     }
 }
