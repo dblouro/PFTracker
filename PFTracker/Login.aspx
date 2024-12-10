@@ -33,7 +33,7 @@
                                 <div>
                                     <div class="form-group">
                                         <label>Username or email *</label>
-                                        <asp:TextBox ID="tb_login" runat="server" class="form-control p_input"></asp:TextBox>
+                                        <asp:TextBox ID="tb_utilizador" runat="server" class="form-control p_input"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <label>Password *</label>
@@ -44,6 +44,7 @@
                                             <asp:CheckBox ID="Cb_lembrar" runat="server" CssClass="form-check-input" Text="Lembrar" />
                                         </div>
                                         <a href="#" class="forgot-pass">Forgot password</a>
+                                        <asp:Label ID="lbl_mensagem" runat="server"></asp:Label>
                                     </div>
                                     <div class="text-center">
                                         <asp:Button ID="btn_login" runat="server" CssClass="btn btn-primary btn-block enter-btn" Text="Login"/>
@@ -52,7 +53,7 @@
                                         <asp:Button ID="btn_facebook" runat="server" Class="btn btn-facebook mr-2 col" Text="Facebook" />
                                         <asp:Button ID="btn_google" runat="server" Class="btn btn-google col" Text="Google"/>
                                     </div>
-                                    <p class="sign-up">Don't have an Account?<a href="Registar.aspx"> Sign Up</a></p>
+                                    <p class="sign-up">Don't have an Account?<a href="Register.aspx"> Sign Up</a></p>
                                 </div>
                             </div>
                         </div>

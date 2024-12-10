@@ -32,7 +32,7 @@ namespace PFTracker
             myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
             myCommand.Parameters.AddWithValue("@email", tb_email.Text);
             myCommand.Parameters.AddWithValue("@movel", tb_movel.Text);
-            myCommand.Parameters.AddWithValue("@codPerfil", ddl_perfil.SelectedValue);
+            
 
             //variaveis de ouput1
             SqlParameter valor = new SqlParameter();
