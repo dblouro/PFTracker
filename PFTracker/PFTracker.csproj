@@ -67,8 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Analise.aspx" />
     <Content Include="ChangePW.aspx" />
     <Content Include="Consulta.aspx" />
+    <Content Include="css\home.css" />
     <Content Include="css\style.css" />
     <Content Include="Home.aspx" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
@@ -261,6 +263,7 @@
     <Content Include="js\formpickers.js" />
     <Content Include="js\google-charts.js" />
     <Content Include="js\google-maps.js" />
+    <Content Include="js\home.js" />
     <Content Include="js\hoverable-collapse.js" />
     <Content Include="js\iCheck.js" />
     <Content Include="js\inputmask.js" />
@@ -847,12 +850,33 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analise.aspx.cs">
+      <DependentUpon>Analise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Analise.aspx.designer.cs">
+      <DependentUpon>Analise.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ChangePW.aspx.cs">
       <DependentUpon>ChangePW.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ChangePW.aspx.designer.cs">
       <DependentUpon>ChangePW.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta.aspx.cs">
+      <DependentUpon>Consulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta.aspx.designer.cs">
+      <DependentUpon>Consulta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

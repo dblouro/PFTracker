@@ -1,0 +1,37 @@
+﻿body {
+}
+
+.credit-card {
+    width: 350px;
+    height: 200px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+}
+
+    .credit-card .card-number {
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+    }
+
+    .credit-card .card-balance {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .credit-card .logo {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+    }
+
+    .credit-card .card-holder {
+        position: absolute;
+        bottom: 15px;
+        font-size: 0.8rem;
+    }
