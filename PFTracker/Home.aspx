@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link rel="stylesheet" href="css/home.css">
+    
+    
+    
     <div class="col-md-4 grid-margin stretch-card">
         <div class="credit-card">
             <div class="logo"></div>
@@ -11,82 +14,111 @@
         </div>
     </div>
     <div class="row">
-        <!-- Card de resumo financeiro -->
-        <div class="col-md-4 grid-margin stretch-card">
+        <!-- Resumo Financeiro -->
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Resumo Financeiro</h4>
-                    <p class="text-muted">Saldo Atual</p>
+                    <p>Saldo Atual</p>
                     <h3>$12,345.67</h3>
-                </div>
-            </div>
-        </div>
-
-        <!-- Gráfico de pizza para despesas -->
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Despesas por Categoria</h4>
                     <canvas id="expensePieChart"></canvas>
                 </div>
             </div>
         </div>
+        <!-- Próximos Pagamentos -->
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Próximos Pagamentos</h4>
+                    <ul class="payment-list">
+                        <li><span class="payment-date">15 Dez</span><span>Conta de Água</span><span>$45.00</span></li>
+                        <li><span class="payment-date">20 Dez</span><span>Renda</span><span>$1,200.00</span></li>
+                        <li><span class="payment-date">25 Dez</span><span>net</span><span>$60.00</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Tabela de objetivos de poupança -->
+    <div class="row">
+        <!-- Objetivos de Poupança -->
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Objetivos de Poupança</h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Meta</th>
-                                    <th>Valor Alvo</th>
-                                    <th>Progresso</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Comprar um Carro</td>
-                                    <td>$20,000</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div
-                                                class="progress-bar bg-success"
-                                                role="progressbar"
-                                                style="width: 50%;"
-                                                aria-valuenow="50"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <label class="badge badge-success">Em Progresso</label></td>
-                                </tr>
-                                <tr>
-                                    <td>Viagem de Férias</td>
-                                    <td>$5,000</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div
-                                                class="progress-bar bg-warning"
-                                                role="progressbar"
-                                                style="width: 75%;"
-                                                aria-valuenow="75"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <label class="badge badge-warning">Quase Lá</label></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Meta</th>
+                                <th>Valor Alvo</th>
+                                <th>Progresso</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Comprar um Carro</td>
+                                <td>$20,000</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: 50%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-success">Em Progresso</span></td>
+                            </tr>
+                            <tr>
+                                <td>Viagem</td>
+                                <td>$5,000</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" style="width: 75%;"></div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-warning">Quase Lá</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Transações Recentes -->
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Transações Recentes</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10 Dez</td>
+                                <td>Supermercado</td>
+                                <td>Compras</td>
+                                <td>$200.00</td>
+                            </tr>
+                            <tr>
+                                <td>09 Dez</td>
+                                <td>Gasolina</td>
+                                <td>Transporte</td>
+                                <td>$50.00</td>
+                            </tr>
+                            <tr>
+                                <td>08 Dez</td>
+                                <td>Almoço</td>
+                                <td>Lazer</td>
+                                <td>$30.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
