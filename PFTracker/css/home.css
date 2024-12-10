@@ -1,6 +1,7 @@
 ﻿body {
 }
 
+/*Cartao de credito*/
 .credit-card {
     width: 350px;
     height: 200px;
@@ -35,3 +36,54 @@
         bottom: 15px;
         font-size: 0.8rem;
     }
+
+    .credit-card.add-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #282828;
+        color: #aaa;
+        border: 2px dashed #444;
+        border-radius: 10px;
+        height: 200px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .add-card:hover {
+        background: #333;
+        color: white;
+        border-color: #666;
+    }
+
+.credit-card.add-icon {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.payment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .payment-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+.payment-date {
+    font-weight: bold;
+    color: #007bff;
+    flex: 0 0 70px;
+}
+
+.progress-bar {
+    height: 10px;
+}
