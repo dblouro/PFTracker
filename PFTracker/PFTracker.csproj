@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -70,6 +71,7 @@
     <Content Include="Analise.aspx" />
     <Content Include="ChangePW.aspx" />
     <Content Include="Consulta.aspx" />
+    <Content Include="css\consulta.css" />
     <Content Include="css\home.css" />
     <Content Include="css\style.css" />
     <Content Include="GestaoUtilizadores.aspx" />
