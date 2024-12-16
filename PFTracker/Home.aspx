@@ -1,51 +1,64 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Template.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="PFTracker.Home" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <link rel="stylesheet" href="css/home.css">
-    
-    
-    
-    <div class="col-md-4 grid-margin stretch-card">
-        <div class="credit-card">
-            <div class="logo"></div>
-            <div class="card-number">1234 5678 9012 3456</div>
-            <div class="card-balance">Balance: $1,234.56</div>
-            <div class="card-holder">Card Holder: John Doe</div>
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Cartões de Crédito -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="credit-card">
+                <div class="logo"><i class="fas fa-credit-card"></i></div>
+                <div class="card-number">1234 5678 9012 3456</div>
+                <div class="card-balance">Balance: $1,234.56</div>
+                <div class="card-holder">Card Holder: John Doe</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="credit-card add-card">
+                <div class="add-icon">+</div>
+                <p>Adicionar Novo Cartão</p>
+            </div>
         </div>
     </div>
+
+    <!-- Resumo Financeiro e Próximos Pagamentos -->
     <div class="row">
         <!-- Resumo Financeiro -->
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Resumo Financeiro</h4>
+                    <h4 class="card-title"><i class="fas fa-wallet"></i>Resumo Financeiro</h4>
                     <p>Saldo Atual</p>
                     <h3>$12,345.67</h3>
                     <canvas id="expensePieChart"></canvas>
                 </div>
             </div>
         </div>
+
         <!-- Próximos Pagamentos -->
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Próximos Pagamentos</h4>
+                    <h4 class="card-title"><i class="fas fa-calendar-alt"></i>Próximos Pagamentos</h4>
                     <ul class="payment-list">
                         <li><span class="payment-date">15 Dez</span><span>Conta de Água</span><span>$45.00</span></li>
                         <li><span class="payment-date">20 Dez</span><span>Renda</span><span>$1,200.00</span></li>
-                        <li><span class="payment-date">25 Dez</span><span>net</span><span>$60.00</span></li>
+                        <li><span class="payment-date">25 Dez</span><span>Internet</span><span>$60.00</span></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Objetivos de Poupança -->
     <div class="row">
-        <!-- Objetivos de Poupança -->
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Objetivos de Poupança</h4>
+                    <h4 class="card-title"><i class="fas fa-bullseye"></i>Objetivos de Poupança</h4>
+                    <button class="btn btn-primary btn-sm mb-3">Adicionar Objetivo</button>
                     <table class="table">
                         <thead>
                             <tr>
@@ -83,12 +96,12 @@
         </div>
     </div>
 
+    <!-- Transações Recentes -->
     <div class="row">
-        <!-- Transações Recentes -->
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Transações Recentes</h4>
+                    <h4 class="card-title"><i class="fas fa-list-alt"></i>Transações Recentes</h4>
                     <table class="table">
                         <thead>
                             <tr>
@@ -123,6 +136,7 @@
             </div>
         </div>
     </div>
+
     <!-- Incluir Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -137,7 +151,7 @@
                     datasets: [
                         {
                             data: [300, 500, 100, 150],
-                            backgroundColor: ["#007bff", "#6610f2", "#28a745", "#ffc107"],
+                            backgroundColor: ["#007bff", "#6610f2", "#28a745", "#dc3545"],
                         },
                     ],
                 },
@@ -148,6 +162,10 @@
                             position: "top",
                         },
                     },
+                    animation: {
+                        duration: 1000,
+                        easing: "easeInOutQuart"
+                    }
                 },
             });
         });
