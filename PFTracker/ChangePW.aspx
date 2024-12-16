@@ -61,7 +61,7 @@
                                             <i class="mdi mdi-google-plus"></i>Google plus
                                         </button>
                                     </div>
-                                    <p class="sign-up text-center">Already have an Account?<a href="Login.aspx"> Sign Up</a></p>
+                                    <asp:HyperLink ID="lbl_registo" runat="server" class="sign-up text-center" NavigateUrl="Login.aspx" Text="Já tem conta? Entre!"></asp:HyperLink>
                                     <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
                                 </div>
                             </div>
