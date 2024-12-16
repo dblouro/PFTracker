@@ -72,6 +72,7 @@
     <Content Include="Consulta.aspx" />
     <Content Include="css\home.css" />
     <Content Include="css\style.css" />
+    <Content Include="GestaoUtilizadores.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
@@ -305,6 +306,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Objectivos.aspx" />
     <Content Include="Pagina_de_teste.aspx" />
+    <Content Include="PerfilUtilizador.aspx" />
     <Content Include="RecoverPW.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Relatorios.aspx" />
@@ -871,12 +873,22 @@
     <Compile Include="Consulta.aspx.designer.cs">
       <DependentUpon>Consulta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GestaoUtilizadores.aspx.cs">
+      <DependentUpon>GestaoUtilizadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestaoUtilizadores.aspx.designer.cs">
+      <DependentUpon>GestaoUtilizadores.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler.ashx.cs">
+      <DependentUpon>ImageHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -898,6 +910,13 @@
     </Compile>
     <Compile Include="Pagina_de_teste.aspx.designer.cs">
       <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PerfilUtilizador.aspx.cs">
+      <DependentUpon>PerfilUtilizador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PerfilUtilizador.aspx.designer.cs">
+      <DependentUpon>PerfilUtilizador.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecoverPW.aspx.cs">
@@ -967,6 +986,7 @@
     <Content Include="fonts\Rubik\Rubik-Light.ttf" />
     <Content Include="fonts\Rubik\Rubik-Medium.ttf" />
     <Content Include="fonts\Rubik\Rubik-Regular.ttf" />
+    <Content Include="ImageHandler.ashx" />
     <None Include="packages.config" />
     <Content Include="Template.Master" />
     <Content Include="scss\components\landing-screens\_auth.scss" />

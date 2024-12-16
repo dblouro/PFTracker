@@ -43,7 +43,7 @@
                                         <div class="form-check">
                                             <asp:CheckBox ID="Cb_lembrar" runat="server" CssClass="form-check-input" Text="Lembrar" />
                                         </div>
-                                        <a href="#" class="forgot-pass">Forgot password</a>
+                                        <asp:HyperLink ID="lbl_esqueceu" runat="server" class="forgot-pass" NavigateUrl="RecoverPW.aspx" Text="Esqueceu-se da password?"></asp:HyperLink>
                                         <asp:Label ID="lbl_mensagem" runat="server"></asp:Label>
                                     </div>
                                     <div class="text-center">
@@ -53,7 +53,7 @@
                                         <asp:Button ID="btn_facebook" runat="server" Class="btn btn-facebook mr-2 col" Text="Facebook" />
                                         <asp:Button ID="btn_google" runat="server" Class="btn btn-google col" Text="Google"/>
                                     </div>
-                                    <p class="sign-up">Don't have an Account?<a href="Register.aspx"> Sign Up</a></p>
+                                    <asp:HyperLink ID="lbl_registo" runat="server" class="sign-up" NavigateUrl="Register.aspx" Text="Não tem conta? Registe-se!"></asp:HyperLink>
                                 </div>
                             </div>
                         </div>

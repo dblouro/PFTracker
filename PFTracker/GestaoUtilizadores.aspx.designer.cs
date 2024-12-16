@@ -11,7 +11,7 @@ namespace PFTracker
 {
 
 
-    public partial class RecoverPW
+    public partial class GestaoUtilizadores
     {
 
         /// <summary>
@@ -24,66 +24,39 @@ namespace PFTracker
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controle lbl_email.
+        /// Controle rpt_utilizadores.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_email;
+        protected global::System.Web.UI.WebControls.Repeater rpt_utilizadores;
 
         /// <summary>
-        /// Controle tb_email.
+        /// Controle SqlDataSource1.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_email;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
 
         /// <summary>
-        /// Controle lbl_mensagem.
+        /// Controle btn_gravarTudo.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_mensagem;
+        protected global::System.Web.UI.WebControls.Button btn_gravarTudo;
 
         /// <summary>
-        /// Controle btn_enviar.
+        /// Controle hiddenFieldNumFormando.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_enviar;
-
-        /// <summary>
-        /// Controle btn_facebook.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_facebook;
-
-        /// <summary>
-        /// Controle btn_google.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_google;
-
-        /// <summary>
-        /// Controle lbl_registo.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lbl_registo;
+        protected global::System.Web.UI.WebControls.HiddenField hiddenFieldNumFormando;
     }
 }
