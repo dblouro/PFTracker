@@ -69,6 +69,24 @@ namespace PFTracker
         protected global::System.Web.UI.WebControls.TextBox tb_movel;
 
         /// <summary>
+        /// Controle tb_nif.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_nif;
+
+        /// <summary>
+        /// Controle tb_morada.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_morada;
+
+        /// <summary>
         /// Controle tb_pw.
         /// </summary>
         /// <remarks>

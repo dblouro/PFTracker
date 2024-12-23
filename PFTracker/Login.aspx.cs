@@ -25,7 +25,7 @@ namespace PFTracker
             SqlCommand myCommand = new SqlCommand();
 
             //variaveis de inpout
-            myCommand.Parameters.AddWithValue("@util", tb_utilizador.Text);
+            myCommand.Parameters.AddWithValue("@nome", tb_utilizador.Text);
             myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
 
             //variaveis de ouput
@@ -47,7 +47,7 @@ namespace PFTracker
 
 
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_login_perfil";
+            myCommand.CommandText = "pft_login_perfil";
 
             myCommand.Connection = myConn;
 
@@ -65,18 +65,18 @@ namespace PFTracker
 
                 lbl_mensagem.Text = "Você entrou!";
 
-                if (respostaPerfil == "Administrador")
+                if (respostaPerfil == "admin")
                 {
-                    Response.Redirect("Administrador.aspx");
+                    Response.Redirect("GestaoUtilizadores.aspx");
                 }
                 else
                 {
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Home.aspx");
                 }
             }
             else
             {
-                lbl_mensagem.Text = "Utilizador ou palavra-passe errados!";
+                lbl_mensagem.Text = "Credenciais inválidas!";
             }
         }
 

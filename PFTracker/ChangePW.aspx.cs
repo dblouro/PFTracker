@@ -46,7 +46,7 @@ namespace PFTracker
 
 
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_alterarPW";
+            myCommand.CommandText = "pft_alterarPW";
 
             myCommand.Connection = myConn;
 
@@ -58,11 +58,11 @@ namespace PFTracker
             myConn.Close();
             if (respostaSP == 1)
             {
-                lbl_mensagem.Text = "pw atualizada com sucesso";
+                lbl_mensagem.Text = "Palavra-Passe atualizada com sucesso";
             }
             else
             {
-                lbl_mensagem.Text = "pw já existente!";
+                lbl_mensagem.Text = "Palavra-Passe já existente!";
             }
         }
 

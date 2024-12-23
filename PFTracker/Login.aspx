@@ -32,12 +32,13 @@
                                 <h3 class="card-title text-left mb-3">Login</h3>
                                 <div>
                                     <div class="form-group">
-                                        <label>Username or email *</label>
+                                        <label>Nome *</label>
                                         <asp:TextBox ID="tb_utilizador" runat="server" class="form-control p_input"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <label>Password *</label>
                                         <asp:TextBox ID="tb_pw" runat="server" class="form-control p_input" TextMode="Password"></asp:TextBox>
+                                        <input type="hidden" id="senha_hidden" runat="server" />
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between">
                                         <div class="form-check">
@@ -47,7 +48,7 @@
                                         <asp:Label ID="lbl_mensagem" runat="server"></asp:Label>
                                     </div>
                                     <div class="text-center">
-                                        <asp:Button ID="btn_login" runat="server" CssClass="btn btn-primary btn-block enter-btn" Text="Login"/>
+                                        <asp:Button ID="btn_login" runat="server" CssClass="btn btn-primary btn-block enter-btn" Text="Login" OnClick="btn_login_Click"/>
                                     </div>
                                     <div class="d-flex">
                                         <asp:Button ID="btn_facebook" runat="server" Class="btn btn-facebook mr-2 col" Text="Facebook" />
