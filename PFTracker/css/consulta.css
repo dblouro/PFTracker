@@ -1,2 +1,13 @@
 ﻿body {
+
+}
+input:disabled, select:disabled, textarea:disabled {
+    background-color: #343a40 !important; /* Cor de fundo escura */
+    color: #ced4da !important; /* Texto cinza claro */
+    border: 1px solid #495057 !important; /* Borda cinza escuro */
+    cursor: not-allowed; /* Cursor de não permitido */
+}
+
+input, select, textarea {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efeito suave ao ativar/desativar */
 }
