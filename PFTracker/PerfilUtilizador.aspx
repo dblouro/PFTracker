@@ -31,9 +31,14 @@
                                 <h3 class="card-title text-left mb-3">Perfil do Utilizador</h3>
                                 <div>
                                     <div class="form-group">
+                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# "~/ImageHandler.ashx?id=" + Eval("cod_produto") %>'  BorderColor="Black" BorderWidth="1px" Height="250px" Width="250px" />
+                                    </div>
+                                    <div class="form-group">
                                         <label>Nome de Utilizador:</label>
                                         <asp:TextBox ID="tb_utilizador" runat="server" class="form-control p_input" ReadOnly></asp:TextBox>
                                     </div>
+
+                                    
                                     <div class="form-group">
                                         <label>Email de Utilizador:</label>
                                         <asp:TextBox ID="tb_email" runat="server" class="form-control p_input" ReadOnly></asp:TextBox>

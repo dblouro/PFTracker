@@ -17,13 +17,13 @@ namespace PFTracker
         {
             if (Session["Utilizador"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("ChangePW.aspx");
             }
         }
 
         protected void btn_alterar_Click(object sender, EventArgs e)
         {
-            string utilizador = Session["utilizador"].ToString();
+            string utilizador = Session["Utilizador"].ToString();
             string pwAtual = EncryptString(tb_pwAtual.Text);
             string pwNova = EncryptString(tb_pwNova.Text);
 
