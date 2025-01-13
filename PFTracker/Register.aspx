@@ -42,15 +42,25 @@
                                         &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Introduza um email válido" ForeColor="#009933" ControlToValidate="tb_email" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                                     </div>
                                     <div class="form-group">
-                                        <label>Telemovel</label>
-                                        <asp:TextBox ID="tb_movel" runat="server" class="form-control p_input"></asp:TextBox>
+                                    <label>Telemovel</label>
+                                    <asp:TextBox ID="tb_movel" runat="server" class="form-control p_input"></asp:TextBox>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <label>Número de Identificação Fiscal</label>
+                                    <asp:TextBox ID="tb_nif" runat="server" class="form-control p_input"></asp:TextBox>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <label>Morada</label>
+                                    <asp:TextBox ID="tb_morada" runat="server" class="form-control p_input"></asp:TextBox>
 
                                     </div>
                                     <div class="form-group">
                                         <label>Palavra-Passe</label>
                                         <asp:TextBox ID="tb_pw" runat="server" class="form-control p_input" OnTextChanged="tb_pw_TextChanged" TextMode="Password"></asp:TextBox>
                                         <input type="hidden" id="senha_hidden" runat="server" />
-                                        <button type="button" onclick="togglePassword()">👁</button>
+                                        <!-- <button type="button" onclick="togglePassword()">👁</button> -->
                                         <br />
                                         <label>Força da Palavra-Passe</label>
                                         <asp:Label ID="lbl_validar" runat="server"></asp:Label>

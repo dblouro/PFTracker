@@ -40,7 +40,7 @@ namespace PFTracker
 
 
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_recuperarPW";
+            myCommand.CommandText = "pft_recuperarPW";
 
             myCommand.Connection = myConn;
 

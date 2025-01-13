@@ -32,7 +32,8 @@ namespace PFTracker
             myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
             myCommand.Parameters.AddWithValue("@email", tb_email.Text);
             myCommand.Parameters.AddWithValue("@movel", tb_movel.Text);
-            
+            myCommand.Parameters.AddWithValue("@nif", tb_nif.Text);
+            myCommand.Parameters.AddWithValue("@morada", tb_morada.Text);
 
             //variaveis de ouput1
             SqlParameter valor = new SqlParameter();
@@ -43,7 +44,7 @@ namespace PFTracker
             myCommand.Parameters.Add(valor);
 
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_registo_com_ativacao";
+            myCommand.CommandText = "pft_registo_com_ativacao";
 
             myCommand.Connection = myConn;
 

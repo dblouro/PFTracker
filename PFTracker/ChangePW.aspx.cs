@@ -17,13 +17,13 @@ namespace PFTracker
         {
             if (Session["Utilizador"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("ChangePW.aspx");
             }
         }
 
         protected void btn_alterar_Click(object sender, EventArgs e)
         {
-            string utilizador = Session["utilizador"].ToString();
+            string utilizador = Session["Utilizador"].ToString();
             string pwAtual = EncryptString(tb_pwAtual.Text);
             string pwNova = EncryptString(tb_pwNova.Text);
 
@@ -46,7 +46,7 @@ namespace PFTracker
 
 
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "LO_alterarPW";
+            myCommand.CommandText = "pft_alterarPW";
 
             myCommand.Connection = myConn;
 
@@ -58,11 +58,11 @@ namespace PFTracker
             myConn.Close();
             if (respostaSP == 1)
             {
-                lbl_mensagem.Text = "pw atualizada com sucesso";
+                lbl_mensagem.Text = "Palavra-Passe atualizada com sucesso";
             }
             else
             {
-                lbl_mensagem.Text = "pw já existente!";
+                lbl_mensagem.Text = "Palavra-Passe já existente!";
             }
         }
 
