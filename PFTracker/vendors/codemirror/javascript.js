@@ -530,7 +530,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       return cont(afterprop);
     } else if (isTS && isModifier(value)) {
       cx.marked = "keyword"
-      return cont(objprop)
+      return cont(objprop);
     } else if (type == "[") {
       return cont(expression, maybetype, expect("]"), afterprop);
     } else if (type == "spread") {
@@ -539,7 +539,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       cx.marked = "keyword";
       return cont(objprop);
     } else if (type == ":") {
-      return pass(afterprop)
+      return pass(afterprop);
     }
   }
   function getterSetter(type) {
