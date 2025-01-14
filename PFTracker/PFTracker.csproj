@@ -175,6 +175,8 @@
     <Content Include="images\lightbox\thumb-v-y-2.jpg" />
     <Content Include="images\logo-mini.svg" />
     <Content Include="images\logo.svg" />
+    <Content Include="images\pftracker-logo-mini.png" />
+    <Content Include="images\pftracker-logo.png" />
     <Content Include="images\samples\1280x768\1.jpg" />
     <Content Include="images\samples\1280x768\10.jpg" />
     <Content Include="images\samples\1280x768\11.jpg" />
