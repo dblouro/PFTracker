@@ -133,7 +133,7 @@ namespace PFTracker
             if (!string.IsNullOrEmpty(idTransacao))
             {
                 // Armazenar o idTransacao no HiddenField para usá-lo depois
-                hf_id_transacao.Value = idTransacao; // hf_idTransacao é um HiddenField
+                hf_id_transacao.Value = idTransacao;
 
                 // Aqui, você pode usar diretamente a consulta SQL para preencher os campos do modal
                 string query = "SELECT descricao, nome, valor, tipo_transacao FROM [Consulta] WHERE id_transacao = @id_transacao";
