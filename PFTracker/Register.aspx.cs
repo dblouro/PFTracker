@@ -23,7 +23,7 @@ namespace PFTracker
 
         protected void btn_registar_Click(object sender, EventArgs e)
         {
-            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
+            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings[""].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 
