@@ -12,108 +12,129 @@
                 <input type="date" id="startDate" class="form-control" style="display: inline-block; width: auto;">
                 <span>até</span>
                 <input type="date" id="endDate" class="form-control" style="display: inline-block; width: auto;">
+                <button id="applyFilters" class="btn btn-primary" style="margin-left: 10px;">Aplicar</button>
             </div>
         </div>
-
-        <!-- Gráficos -->
-        <div class="row">
-            <!-- Gráfico de Pizza -->
-            <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Distribuição de Despesas</h4>
-                        <canvas id="expensePieChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gráfico de Barras -->
-            <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Receitas vs Despesas</h4>
-                        <canvas id="incomeExpenseBarChart"></canvas>
-                    </div>
+    </div>
+    <!-- Gráficos -->
+    <div class="row">
+        <!-- Gráfico de Pizza -->
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Distribuição de Despesas</h4>
+                    <canvas id="expensePieChart"></canvas>
                 </div>
             </div>
         </div>
-
-        <!-- Tabela de transações -->
-        <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Transações Detalhadas</h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Tipo</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>10 Dez</td>
-                                    <td>Supermercado</td>
-                                    <td>Alimentação</td>
-                                    <td>Despesa</td>
-                                    <td>$200.00</td>
-                                </tr>
-                                <tr>
-                                    <td>09 Dez</td>
-                                    <td>Salário</td>
-                                    <td>Receita</td>
-                                    <td>Entrada</td>
-                                    <td>$1,200.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <!-- Gráfico de Barras -->
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Receitas vs Despesas</h4>
+                    <canvas id="incomeExpenseBarChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Scripts para gráficos -->
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Previsão de Despesas (Próximos 3 Meses)</h4>
+                    <table class="table" id="previsaoDespesasTable">
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Mês</th>
+                                <th>Média de Despesas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Previsões serão carregadas aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <!-- Scripts para gráficos -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Gráfico de Pizza
-            var pieCtx = document.getElementById("expensePieChart").getContext("2d");
-            new Chart(pieCtx, {
-                type: "pie",
-                data: {
-                    labels: ["Alimentação", "Transporte", "Lazer", "Outros"],
-                    datasets: [{
-                        data: [500, 200, 150, 100],
-                        backgroundColor: ["#007bff", "#28a745", "#ffc107", "#6c757d"]
-                    }]
-                }
-            });
+            fetch("Analise.aspx/ObterDadosGraficos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const dados = JSON.parse(data.d);
 
-            // Gráfico de Barras
-            var barCtx = document.getElementById("incomeExpenseBarChart").getContext("2d");
-            new Chart(barCtx, {
-                type: "bar",
-                data: {
-                    labels: ["Janeiro", "Fevereiro", "Março", "Abril"],
-                    datasets: [
-                        {
-                            label: "Receitas",
-                            data: [3000, 4000, 3500, 3800],
-                            backgroundColor: "#28a745"
-                        },
-                        {
-                            label: "Despesas",
-                            data: [2500, 3000, 2800, 3200],
-                            backgroundColor: "#dc3545"
+                    // Atualizar Gráfico de Pizza
+                    new Chart(document.getElementById("expensePieChart").getContext("2d"), {
+                        type: "pie",
+                        data: {
+                            labels: dados.despesas.labels,
+                            datasets: [{
+                                data: dados.despesas.valores,
+                                backgroundColor: ["#007bff", "#28a745", "#ffc107", "#6c757d"]
+                            }]
                         }
-                    ]
-                }
-            });
-        });
-</script>
+                    });
 
+                    // Atualizar Gráfico de Barras
+                    new Chart(document.getElementById("incomeExpenseBarChart").getContext("2d"), {
+                        type: "bar",
+                        data: {
+                            labels: dados.receitasDespesas.meses,
+                            datasets: [
+                                {
+                                    label: "Receitas",
+                                    data: dados.receitasDespesas.receitas,
+                                    backgroundColor: "#28a745"
+                                },
+                                {
+                                    label: "Despesas",
+                                    data: dados.receitasDespesas.despesas,
+                                    backgroundColor: "#dc3545"
+                                }
+                            ]
+                        }
+                    });
+                })
+                .catch(error => console.error("Erro ao carregar os dados:", error));
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obter o mês atual (Janeiro = 0, por isso adicionamos 1)
+            const mesAtual = new Date().getMonth() + 1;
+
+            // Chamar o WebMethod com o mês atual
+            fetch("Analise.aspx/ObterPrevisaoDespesas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mesAtual: mesAtual }) // Passa o mês atual
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dados recebidos:", data);
+                    const previsoes = JSON.parse(data.d);
+
+                    const tabelaBody = document.querySelector("#previsaoDespesasTable tbody");
+                    tabelaBody.innerHTML = "";
+
+                    previsoes.forEach(previsao => {
+                        const linha = document.createElement("tr");
+                        linha.innerHTML = `
+                    <td>${previsao.Categoria}</td>
+                    <td>${["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][previsao.Mes - 1]}</td>
+                    <td>${previsao.MediaMensalDespesas.toFixed(2)} €</td>
+                `;
+                        tabelaBody.appendChild(linha);
+                    });
+                })
+                .catch(error => console.error("Erro ao carregar as previsões:", error));
+        });
+    </script>
 </asp:Content>
