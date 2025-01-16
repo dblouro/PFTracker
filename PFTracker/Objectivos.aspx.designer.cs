@@ -33,15 +33,6 @@ namespace PFTracker
         protected global::System.Web.UI.WebControls.Repeater rpt_tabela_objetivos;
 
         /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-
-        /// <summary>
         /// lbl_objetivo control.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,24 @@ namespace PFTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_data_alvo;
+
+        /// <summary>
+        /// goalDeadline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl goalDeadline;
+
+        /// <summary>
+        /// btn_add_objetivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_add_objetivo;
 
         /// <summary>
         /// lbl_descricao_detalhes control.
@@ -231,13 +240,13 @@ namespace PFTracker
         protected global::System.Web.UI.WebControls.Label lbl_status;
 
         /// <summary>
-        /// lbl_adicionar_saldo control.
+        /// lbl_saldo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_adicionar_saldo;
+        protected global::System.Web.UI.WebControls.Label lbl_saldo;
 
         /// <summary>
         /// tb_add_saldo control.
@@ -249,12 +258,21 @@ namespace PFTracker
         protected global::System.Web.UI.WebControls.TextBox tb_add_saldo;
 
         /// <summary>
-        /// btn_add_saldo control.
+        /// btn_confirmar_add_saldo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_add_saldo;
+        protected global::System.Web.UI.WebControls.Button btn_confirmar_add_saldo;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

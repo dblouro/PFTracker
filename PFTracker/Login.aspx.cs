@@ -20,63 +20,73 @@ namespace PFTracker
 
         protected void btn_login_Click(object sender, EventArgs e)
         {
-            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
-
-            SqlCommand myCommand = new SqlCommand();
-
-            //variaveis de inpout
-            myCommand.Parameters.AddWithValue("@nome", tb_utilizador.Text);
-            myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text));
-
-            //variaveis de ouput
-            SqlParameter valor = new SqlParameter();
-            valor.ParameterName = "@retorno";
-            valor.Direction = ParameterDirection.Output;
-            valor.SqlDbType = SqlDbType.Int;
-
-            myCommand.Parameters.Add(valor);
-
-            //variaveis de ouput2
-            SqlParameter retornoPerfil = new SqlParameter();
-            retornoPerfil.ParameterName = "@retorno_perfil";
-            retornoPerfil.Direction = ParameterDirection.Output;
-            retornoPerfil.SqlDbType = SqlDbType.VarChar;
-            retornoPerfil.Size = 20;
-
-            myCommand.Parameters.Add(retornoPerfil);
-
-
-            myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "pft_login_perfil";
-
-            myCommand.Connection = myConn;
-
-            myConn.Open();
-            myCommand.ExecuteNonQuery();
-
-            //apanhar o valor do retorno
-            int respostaSP = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-            string respostaPerfil = myCommand.Parameters["@retorno_perfil"].Value.ToString();
-            myConn.Close();
-            if (respostaSP == 1)
+            try
             {
-                Session["Email"] = tb_utilizador.Text;
-                Session["Role"] = respostaPerfil;
-
-                lbl_mensagem.Text = "Você entrou!";
-
-                if (respostaPerfil == "admin")
+                using (SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
                 {
-                    Response.Redirect("GestaoUtilizadores.aspx");
-                }
-                else
-                {
-                    Response.Redirect("Home.aspx");
+                    using (SqlCommand myCommand = new SqlCommand("pft_login_perfil", myConn))
+                    {
+                        myCommand.CommandType = CommandType.StoredProcedure;
+
+                        // Parâmetros de entrada
+                        myCommand.Parameters.AddWithValue("@nome", tb_utilizador.Text.Trim());
+                        myCommand.Parameters.AddWithValue("@pw", EncryptString(tb_pw.Text.Trim()));
+
+                        // Parâmetro de saída: retorno
+                        SqlParameter retornoParam = new SqlParameter("@retorno", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        myCommand.Parameters.Add(retornoParam);
+
+                        // Parâmetro de saída: perfil
+                        SqlParameter perfilParam = new SqlParameter("@retorno_perfil", SqlDbType.VarChar, 20)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        myCommand.Parameters.Add(perfilParam);
+
+                        // Parâmetro de saída: ID do utilizador
+                        SqlParameter idUtilizadorParam = new SqlParameter("@id_utilizador", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        myCommand.Parameters.Add(idUtilizadorParam);
+
+                        myConn.Open();
+                        myCommand.ExecuteNonQuery();
+
+                        // Obter os valores de saída
+                        int respostaSP = (int)myCommand.Parameters["@retorno"].Value;
+                        string respostaPerfil = myCommand.Parameters["@retorno_perfil"].Value.ToString();
+                        int idUtilizador = (int)myCommand.Parameters["@id_utilizador"].Value;
+
+                        if (respostaSP == 1)
+                        {
+                            Session["Email"] = tb_utilizador.Text;
+                            Session["Role"] = respostaPerfil;
+                            Session["UserId"] = idUtilizador;
+
+                            if (respostaPerfil == "admin")
+                            {
+                                Response.Redirect("GestaoUtilizadores.aspx");
+                            }
+                            else
+                            {
+                                Response.Redirect("Home.aspx");
+                            }
+                        }
+                        else
+                        {
+                            lbl_mensagem.Text = "Credenciais inválidas!";
+                        }
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                lbl_mensagem.Text = "Credenciais inválidas!";
+                lbl_mensagem.Text = "Erro no processo de login. Por favor, tente novamente.";
+                // Log opcional: Registrar o erro para depuração
             }
         }
 
