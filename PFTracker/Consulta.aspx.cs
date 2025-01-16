@@ -239,13 +239,13 @@ namespace PFTracker
             Button btn = (Button)sender;
             string idTransacao = btn.CommandArgument;
 
-            // Verifique se o ID foi recuperado corretamente
+            // Verifica se o ID foi recuperado corretamente
             if (!string.IsNullOrEmpty(idTransacao))
             {
                 // Armazenar o idTransacao no HiddenField para usá-lo depois
                 hf_id_transacao.Value = idTransacao;
 
-                // Aqui, você pode usar diretamente a consulta SQL para preencher os campos do modal
+                // Consulta SQL para preencher os campos do modal
                 string query = "SELECT descricao, nome, valor, tipo_transacao FROM [Consulta] WHERE id_transacao = @id_transacao";
                 SqlCommand cmd = new SqlCommand(query, myConn);
                 cmd.Parameters.AddWithValue("@id_transacao", idTransacao);
@@ -338,7 +338,7 @@ namespace PFTracker
                 btn_salvar.Visible = false;
 
                 // Atualizar a tabela com os dados filtrados do utilizador
-                filtro_categorias(Convert.ToInt32(Session["id_utilizador"])); // Certifique-se de usar a função que aplica o filtro corretamente
+                filtro_categorias(Convert.ToInt32(Session["id_utilizador"]));
 
                 // Manter o modal aberto
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#viewDetailsModal').modal('show');", true);

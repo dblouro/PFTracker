@@ -52,7 +52,7 @@ namespace PFTracker
                 myConn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
 
-                // Supondo que rpt_tabela_objetivos seja o repeater ou gridview para exibir os dados
+                // exibe os dados
                 rpt_tabela_objetivos.DataSource = dr;
                 rpt_tabela_objetivos.DataBind();
 
@@ -279,7 +279,6 @@ namespace PFTracker
         protected void btn_add_saldo_objectivos_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#addSaldoModal').modal('show');", true);
-
         }
 
         protected void btn_add_saldo_Click(object sender, EventArgs e)
