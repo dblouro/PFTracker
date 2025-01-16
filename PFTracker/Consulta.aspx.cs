@@ -22,37 +22,33 @@ namespace PFTracker
         {
             if (!IsPostBack)
             {
-                // Recupera os dados da base de dados
-                string query = "SELECT id_categoria, nome FROM [pft_categoria]";
+                if (Session["UserId"] != null)
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, myConn))
+                    Label lblUser = (Label)Master.FindControl("lbl_user");
+                    if (lblUser != null)
                     {
-                        myConn.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        // Adiciona manualmente a opção "Todas"
-                        ddp_categorias.Items.Clear();
-                        ddp_categorias.Items.Add(new ListItem("Todas", "0"));
-
-                        // Preenche o DropDownList com os dados da base
-                        while (reader.Read())
-                        {
-                            ddp_categorias.Items.Add(new ListItem(reader["nome"].ToString(), reader["id_categoria"].ToString()));
-                        }
+                        lblUser.Text = "Bem-vindo, " + Session["UserId"].ToString();
                     }
+
+                    // Recupera o id_utilizador da sessão
+                    int id_utilizador = Convert.ToInt32(Session["UserId"]);
+
+                    // Filtra as transações do utilizador logado
+                    filtro_categorias(id_utilizador);
                 }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+
+                PreencherCategorias();
             }
         }
 
-        protected void btn_procurar_Click(object sender, EventArgs e)
-        {
-            filtro_categorias();
-        }
-
-        protected void filtro_categorias()
+        protected void filtro_categorias(int id_utilizador)
         {
             // Base da consulta
-            string query = "SELECT * FROM [Consulta] WHERE 1=1";
+            string query = "SELECT * FROM [Consulta] WHERE id_utilizador = @id_utilizador";
 
             // Limpa os parâmetros existentes no SqlDataSource
             SqlDataSource1.SelectParameters.Clear();
@@ -73,15 +69,18 @@ namespace PFTracker
 
             if (!string.IsNullOrEmpty(tb_min.Text))
             {
-                query += " AND valor BETWEEN @min AND @max";
+                query += " AND valor >= @min";
                 SqlDataSource1.SelectParameters.Add("min", tb_min.Text);
             }
 
             if (!string.IsNullOrEmpty(tb_max.Text))
             {
-                query += " AND valor BETWEEN @min AND @max";
+                query += " AND valor <= @max";
                 SqlDataSource1.SelectParameters.Add("max", tb_max.Text);
             }
+
+            // Adiciona o parâmetro id_utilizador à consulta
+            SqlDataSource1.SelectParameters.Add("id_utilizador", id_utilizador.ToString());
 
             // Atualiza a consulta no SqlDataSource
             SqlDataSource1.SelectCommand = query;
@@ -89,40 +88,151 @@ namespace PFTracker
             // Rebind para aplicar os filtros
             rpt_tabela_consulta.DataBind();
         }
+
+        private void PreencherCategorias()
+        {
+            string query = "SELECT id_categoria, nome FROM [pft_categoria]";
+            using (SqlConnection myConn = new SqlConnection(SqlDataSource1.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, myConn))
+                {
+                    myConn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Limpa o DropDownList antes de adicionar os novos itens
+                    ddp_categorias.Items.Clear();
+                    ddp_categorias.Items.Add(new ListItem("Todas", "0"));
+
+                    // Preenche o DropDownList com os dados da base
+                    while (reader.Read())
+                    {
+                        ddp_categorias.Items.Add(new ListItem(reader["nome"].ToString(), reader["id_categoria"].ToString()));
+                    }
+                }
+            }
+        }
+
+
+        protected void btn_procurar_Click(object sender, EventArgs e)
+        {
+            int id_utilizador = Convert.ToInt32(Session["UserId"]);
+            filtro_categorias(id_utilizador);
+        }
+
+        protected void filtro_categorias()
+        {
+            // Recupera o id_utilizador da sessão
+            int id_utilizador = Convert.ToInt32(Session["id_utilizador"]);
+
+            // Base da consulta
+            string query = "SELECT * FROM [Consulta] WHERE id_utilizador = @id_utilizador";
+
+            // Limpa os parâmetros existentes no SqlDataSource
+            SqlDataSource1.SelectParameters.Clear();
+
+            // Filtros dinâmicos
+            if (!string.IsNullOrEmpty(ddp_categorias.SelectedValue) && ddp_categorias.SelectedValue != "0" && ddp_categorias.SelectedValue != "Todas")
+            {
+                query += " AND id_categoria = @id_categoria";
+                SqlDataSource1.SelectParameters.Add("id_categoria", ddp_categorias.SelectedValue);
+            }
+
+            if (!string.IsNullOrEmpty(dateStart.Value) && !string.IsNullOrEmpty(dateEnd.Value))
+            {
+                query += " AND data BETWEEN @dataStart AND @dataEnd";
+                SqlDataSource1.SelectParameters.Add("dataStart", dateStart.Value);
+                SqlDataSource1.SelectParameters.Add("dataEnd", dateEnd.Value);
+            }
+
+            if (!string.IsNullOrEmpty(tb_min.Text))
+            {
+                query += " AND valor >= @min";
+                SqlDataSource1.SelectParameters.Add("min", tb_min.Text);
+            }
+
+            if (!string.IsNullOrEmpty(tb_max.Text))
+            {
+                query += " AND valor <= @max";
+                SqlDataSource1.SelectParameters.Add("max", tb_max.Text);
+            }
+
+            // Adiciona o parâmetro id_utilizador à consulta
+            SqlDataSource1.SelectParameters.Add("id_utilizador", id_utilizador.ToString());
+
+            // Atualiza a consulta no SqlDataSource
+            SqlDataSource1.SelectCommand = query;
+
+            // Rebind para aplicar os filtros
+            rpt_tabela_consulta.DataBind();
+        }
+
         protected void btn_adicionar_Click(object sender, EventArgs e)
         {
-            string valorCorrigido = tb_valor.Text.Replace(",", ".");
-            decimal valor = Convert.ToDecimal(valorCorrigido, CultureInfo.InvariantCulture);
-
-            myCommand.Parameters.AddWithValue("@descricao", tb_descricao.Text);
-            myCommand.Parameters.AddWithValue("@categoria", ddl_categoria_add.SelectedValue);
-            myCommand.Parameters.AddWithValue("@valor", valor);
-            myCommand.Parameters.AddWithValue("@tipo_transacao", ddl_tipo_transacao.SelectedValue);
-
-            SqlParameter sqlParameter = new SqlParameter();
-            sqlParameter.ParameterName = "@retorno";
-            sqlParameter.Direction = ParameterDirection.Output;
-            sqlParameter.SqlDbType = SqlDbType.Int;
-            myCommand.Parameters.Add(sqlParameter);
-
-            myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "add_transacao";
-
-
-            myCommand.Connection = myConn;
-            myConn.Open();
-            myCommand.ExecuteNonQuery();
-            int resposta = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-            myConn.Close();
-
-            if (resposta == 1)
+            try
             {
-                lbl_add_transacao.Text = "Transação registada com sucesso!";
-                Response.Redirect(Request.RawUrl);
+                if (Session["UserId"] == null || !int.TryParse(Session["UserId"].ToString(), out int id_utilizador))
+                {
+                    lbl_add_transacao.Text = "Erro: ID do utilizador inválido.";
+                    lbl_add_transacao.CssClass = "text-danger";
+                    return;
+                }
+
+                if (!decimal.TryParse(tb_valor.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valor))
+                {
+                    lbl_add_transacao.Text = "Por favor, insira um valor válido.";
+                    lbl_add_transacao.CssClass = "text-danger";
+                    return;
+                }
+
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("add_transacao", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@descricao", tb_descricao.Text);
+                        cmd.Parameters.AddWithValue("@categoria", ddl_categoria_add.SelectedValue);
+                        cmd.Parameters.AddWithValue("@valor", valor);
+                        cmd.Parameters.AddWithValue("@tipo_transacao", ddl_tipo_transacao.SelectedValue);
+                        cmd.Parameters.AddWithValue("@id_utilizador", id_utilizador);
+
+                        SqlParameter retornoParam = new SqlParameter("@retorno", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(retornoParam);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        int resposta = Convert.ToInt32(retornoParam.Value);
+
+                        switch (resposta)
+                        {
+                            case 1:
+                                lbl_add_transacao.Text = "Transação registrada com sucesso!";
+                                lbl_add_transacao.CssClass = "text-success";
+                                Response.Redirect(Request.RawUrl); // Atualiza a página
+                                break;
+                            case 0:
+                                lbl_add_transacao.Text = "Erro: Utilizador não encontrado.";
+                                lbl_add_transacao.CssClass = "text-danger";
+                                break;
+                            case -1:
+                                lbl_add_transacao.Text = "Erro inesperado. Por favor, tente novamente.";
+                                lbl_add_transacao.CssClass = "text-danger";
+                                break;
+                        }
+                    }
+                }
             }
-            else
-                lbl_add_transacao.Text = "Transação já registada!";
+            catch (Exception ex)
+            {
+                lbl_add_transacao.Text = "Erro ao adicionar a transação: " + ex.Message;
+                lbl_add_transacao.CssClass = "text-danger";
+            }
         }
+
+
 
         protected void btn_ver_Click(object sender, EventArgs e)
         {
@@ -152,11 +262,13 @@ namespace PFTracker
                 }
                 myConn.Close();
 
-                
+
                 // Abrir o modal
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#viewDetailsModal').modal('show');", true);
             }
         }
+
+
 
         protected void btn_fechar_Click(object sender, EventArgs e)
         {
@@ -225,11 +337,11 @@ namespace PFTracker
                 btn_editar.Visible = true;
                 btn_salvar.Visible = false;
 
+                // Atualizar a tabela com os dados filtrados do utilizador
+                filtro_categorias(Convert.ToInt32(Session["id_utilizador"])); // Certifique-se de usar a função que aplica o filtro corretamente
+
                 // Manter o modal aberto
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#viewDetailsModal').modal('show');", true);
-
-                // Atualizar a tabela
-                rpt_tabela_consulta.DataBind();
             }
             catch (Exception ex)
             {
@@ -239,14 +351,16 @@ namespace PFTracker
 
                 // Manter o modal aberto para corrigir o erro
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#viewDetailsModal').modal('show');", true);
+
             }
+            Response.Redirect(Request.RawUrl);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#viewDetailsModal').modal('show');", true);
         }
+
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            // Obter o ID da transação a ser apagada
             int idTransacao = int.Parse(hf_id_transacao.Value);
 
-            // Conectar ao banco de dados e apagar a transação
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
             {
                 conn.Open();
@@ -255,13 +369,9 @@ namespace PFTracker
                 cmd.ExecuteNonQuery();
             }
 
-            // Exibir mensagem de sucesso
             lbl_status.Text = "Transação eliminada com sucesso!";
             lbl_status.CssClass = "text-danger";
-
-            // Fechar modal e atualizar a página para refletir as mudanças
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "$('#viewDetailsModal').modal('hide');", true);
-            Response.Redirect(Request.RawUrl); // Atualiza a página
+            Response.Redirect(Request.RawUrl);
         }
     }
 

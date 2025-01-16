@@ -40,7 +40,7 @@
                 </div>
                 <ul class="nav">
                     <li class="nav-item profile">
-                        <% if (Session["Email"] != null)
+                        <% if (Session["UserId"] != null)
                             {  %>
                         <div class="profile-desc">
                             <div class="profile-pic">
@@ -137,6 +137,7 @@
                 </ul>
             </nav>
             <!-- partial -->
+            <asp:Label ID="lblDebug" runat="server" Visible="false" CssClass="debug-label"></asp:Label>
             <div class="container-fluid page-body-wrapper">
                 <!-- partial:../../partials/_navbar.html -->
                 <nav class="navbar p-0 fixed-top d-flex flex-row">

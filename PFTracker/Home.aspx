@@ -1,174 +1,139 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Template.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="PFTracker.Home" %>
+<%@ Page Title="Home" Language="C#" MasterPageFile="~/Template.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="PFTracker.Home" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link rel="stylesheet" href="css/home.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <!-- Cartões de Crédito -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="credit-card">
-                <div class="logo"><i class="fas fa-credit-card"></i></div>
-                <div class="card-number">1234 5678 9012 3456</div>
-                <div class="card-balance">Balance: $1,234.56</div>
-                <div class="card-holder">Card Holder: John Doe</div>
+    <div class="container mt-4">
+        <!-- Resumo Geral -->
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card summary-card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-wallet"></i>Saldo Atual</h5>
+                        <h3>$12,345.67</h3>
+                        <small class="text-white-50">Última atualização: 15/01/2025</small>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="credit-card add-card">
-                <div class="add-icon">+</div>
-                <p>Adicionar Novo Cartão</p>
+            <div class="col-md-4 mb-4">
+                <div class="card summary-card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-line"></i>Despesas Mensais</h5>
+                        <h3>$3,456.78</h3>
+                        <small class="text-white-50">Média das despesas recentes</small>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Resumo Financeiro e Próximos Pagamentos -->
-    <div class="row">
-        <!-- Resumo Financeiro -->
-        <div class="col-md-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-wallet"></i>Resumo Financeiro</h4>
-                    <p>Saldo Atual</p>
-                    <h3>$12,345.67</h3>
-                    <canvas id="expensePieChart"></canvas>
+            <div class="col-md-4 mb-4">
+                <div class="card summary-card text-white bg-danger">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-calendar-alt"></i>Próximos Pagamentos</h5>
+                        <h3>3 Pendentes</h3>
+                        <small class="text-white-50">Total: $1,305.00</small>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Próximos Pagamentos -->
-        <div class="col-md-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-calendar-alt"></i>Próximos Pagamentos</h4>
-                    <ul class="payment-list">
-                        <li><span class="payment-date">15 Dez</span><span>Conta de Água</span><span>$45.00</span></li>
-                        <li><span class="payment-date">20 Dez</span><span>Renda</span><span>$1,200.00</span></li>
-                        <li><span class="payment-date">25 Dez</span><span>Internet</span><span>$60.00</span></li>
-                    </ul>
+        <!-- Objetivos e Gráficos -->
+        <div class="row">
+            <!-- Gráficos -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-pie"></i>Distribuição de Despesas</h5>
+                        <canvas id="expensePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Objetivos -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-bullseye"></i>Objetivos de Poupança</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Comprar um Carro
+                               
+                                <span class="badge bg-success rounded-pill">50%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Viagem
+                               
+                                <span class="badge bg-warning rounded-pill">75%</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary btn-sm mt-3">Adicionar Objetivo</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Objetivos de Poupança -->
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-bullseye"></i>Objetivos de Poupança</h4>
-                    <button class="btn btn-primary btn-sm mb-3">Adicionar Objetivo</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Meta</th>
-                                <th>Valor Alvo</th>
-                                <th>Progresso</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Comprar um Carro</td>
-                                <td>$20,000</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" style="width: 50%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Em Progresso</span></td>
-                            </tr>
-                            <tr>
-                                <td>Viagem</td>
-                                <td>$5,000</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-warning" style="width: 75%;"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-warning">Quase Lá</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transações Recentes -->
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-list-alt"></i>Transações Recentes</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Descrição</th>
-                                <th>Categoria</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>10 Dez</td>
-                                <td>Supermercado</td>
-                                <td>Compras</td>
-                                <td>$200.00</td>
-                            </tr>
-                            <tr>
-                                <td>09 Dez</td>
-                                <td>Gasolina</td>
-                                <td>Transporte</td>
-                                <td>$50.00</td>
-                            </tr>
-                            <tr>
-                                <td>08 Dez</td>
-                                <td>Almoço</td>
-                                <td>Lazer</td>
-                                <td>$30.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Transações Recentes -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-list-alt"></i>Transações Recentes</h5>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10 Dez</td>
+                                    <td>Supermercado</td>
+                                    <td>Compras</td>
+                                    <td>$200.00</td>
+                                </tr>
+                                <tr>
+                                    <td>09 Dez</td>
+                                    <td>Gasolina</td>
+                                    <td>Transporte</td>
+                                    <td>$50.00</td>
+                                </tr>
+                                <tr>
+                                    <td>08 Dez</td>
+                                    <td>Almoço</td>
+                                    <td>Lazer</td>
+                                    <td>$30.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Incluir Chart.js -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Script para renderizar o gráfico -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var ctx = document.getElementById("expensePieChart").getContext("2d");
             new Chart(ctx, {
                 type: "pie",
                 data: {
-                    labels: ["Supermercado", "Automóvel", "Transporte", "Lazer"],
+                    labels: ["Supermercado", "Transportes", "Lazer", "Outros"],
                     datasets: [
                         {
-                            data: [300, 500, 100, 150],
-                            backgroundColor: ["#007bff", "#6610f2", "#28a745", "#dc3545"],
+                            data: [300, 150, 200, 100],
+                            backgroundColor: ["#007bff", "#28a745", "#dc3545", "#ffc107"],
                         },
                     ],
                 },
                 options: {
-                    responsive: true,
                     plugins: {
                         legend: {
-                            position: "top",
+                            position: "bottom",
                         },
                     },
-                    animation: {
-                        duration: 1000,
-                        easing: "easeInOutQuart"
-                    }
                 },
             });
         });
     </script>
-    <script src="js/home.js"></script>
 </asp:Content>

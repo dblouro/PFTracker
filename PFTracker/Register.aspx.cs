@@ -23,7 +23,7 @@ namespace PFTracker
 
         protected void btn_registar_Click(object sender, EventArgs e)
         {
-            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings[""].ConnectionString);
+            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 
@@ -70,7 +70,7 @@ namespace PFTracker
                     m.Subject = "Ativação de conta";
                     m.IsBodyHtml = true;
 
-                    m.Body = $"A sua conta foi ativada, clique <a href='https://localhost:44308/Login.aspx?util={EncryptString(tb_utilizador.Text)}' >aqui</a>";
+                    m.Body = $"A sua conta foi ativada, clique <a href='https://localhost:44321/Login.aspx?util={EncryptString(tb_utilizador.Text)}' >aqui</a>";
 
                     sc.Host = "smtp.office365.com";
                     //sc.Host = "smtp-mail.outlook.com";

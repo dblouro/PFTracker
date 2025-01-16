@@ -21,7 +21,7 @@ namespace PFTracker
 
         protected void btn_enviar_Click(object sender, EventArgs e)
         {
-            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
+            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 

@@ -11,30 +11,57 @@ namespace PFTracker
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Email"] != null)
+            try
             {
-                lbl_user.Text = "Bem-vindo, " + Session["Email"].ToString();
-                btn_logout.Visible = true;
-                btn_login.Visible = false;
+                if (Session["Email"] != null)
+                {
+                    lbl_user.Text = $"Bem-vindo, {Session["Email"]}";
+                    btn_logout.Visible = true;
+                    btn_login.Visible = false;
+                }
+                else
+                {
+                    ExibirMensagemNaoLogado();
+                }
+
+                if (Session["UserId"] != null)
+                {
+                    int userId = Convert.ToInt32(Session["UserId"]);
+                    
+                }
+                else
+                {
+                    lblDebug.Visible = true;
+                    lblDebug.Text = "Session UserId is null";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lbl_user.Text = "Você não está logado.";
-                btn_logout.Visible = false;
-                btn_login.Visible = true;
+                // Log de erro para monitoramento
+                lblDebug.Visible = true;
+                lblDebug.Text = "Erro ao carregar sessão: " + ex.Message;
             }
         }
+
         protected void btn_login_Click(object sender, EventArgs e)
         {
-            //redireciona para a página de login
+            // Redireciona para a página de login
             Response.Redirect("Login.aspx");
         }
 
         protected void btn_logout_Click(object sender, EventArgs e)
         {
-            //redireciona para a dashboard e abandona todas as sessoes
+            // Limpa a sessão e redireciona para a página inicial
+            Session.Clear();
             Session.Abandon();
             Response.Redirect("Home.aspx");
+        }
+
+        private void ExibirMensagemNaoLogado()
+        {
+            lbl_user.Text = "Você não está logado.";
+            btn_logout.Visible = false;
+            btn_login.Visible = true;
         }
     }
 }

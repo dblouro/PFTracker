@@ -27,7 +27,7 @@ namespace PFTracker
             string pwAtual = EncryptString(tb_pwAtual.Text);
             string pwNova = EncryptString(tb_pwNova.Text);
 
-            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
+            SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 

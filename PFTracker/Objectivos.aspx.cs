@@ -20,38 +20,142 @@ namespace PFTracker
         {
             if (!IsPostBack)
             {
-                
+                if (Session["UserId"] != null)
+                {
+                    Label lblUser = (Label)Master.FindControl("lbl_user");
+                    if (lblUser != null)
+                    {
+                        lblUser.Text = "Bem-vindo, " + Session["UserId"].ToString();
+                    }
+
+                    // Recupera o id_utilizador da sessão
+                    int id_utilizador = Convert.ToInt32(Session["UserId"]);
+
+                    CarregarObjetivos();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
             }
         }
-        protected void btn_detalhe_objectivos_Click(object sender, EventArgs e)
+
+        private void CarregarObjetivos()
         {
-            Button btn = (Button)sender;
-            string id_objetivo = btn.CommandArgument;
-            hf_id_objetivo.Value = id_objetivo;
-
-            if (!string.IsNullOrEmpty(id_objetivo))
+            try
             {
-                
-
-
-                string query = "SELECT * FROM [pft_objetivo]  WHERE id_objetivo = @id_objetivo";
+                int id_utilizador = Convert.ToInt32(Session["UserId"]);
+                string query = "SELECT * FROM pft_objetivo WHERE id_utilizador = @id_utilizador";
                 SqlCommand cmd = new SqlCommand(query, myConn);
-                cmd.Parameters.AddWithValue("@id_objetivo", id_objetivo);
+                cmd.Parameters.AddWithValue("@id_utilizador", id_utilizador);
 
                 myConn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
 
-                if (dr.Read())
-                {
-                    tb_descricao_detalhes.Text = dr["descricao"].ToString();
-                    tb_detalhes_valor_atual.Text = dr["valor_inicial"].ToString();
-                    tb_detalhes_valor_alvo.Text = dr["valor_alvo"].ToString();
-                    date_add_create.Value = Convert.ToDateTime(dr["data_criacao"]).ToString("yyyy-MM-dd");
-                    date_add_end.Value = Convert.ToDateTime(dr["data_alvo"]).ToString("yyyy-MM-dd");
-                }
+                // Supondo que rpt_tabela_objetivos seja o repeater ou gridview para exibir os dados
+                rpt_tabela_objetivos.DataSource = dr;
+                rpt_tabela_objetivos.DataBind();
+
                 myConn.Close();
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#detailsModal').modal('show');", true);
+            catch (Exception ex)
+            {
+                lbl_status.Text = "Erro ao carregar objetivos: " + ex.Message;
+                lbl_status.CssClass = "text-danger";
+            }
+            finally
+            {
+                if (myConn.State == ConnectionState.Open)
+                {
+                    myConn.Close();
+                }
+            }
+        }
+
+        protected void btn_add_objetivo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string descricao = tb_descricao_objetivo.Text;
+                decimal valorAlvo = Convert.ToDecimal(tb_valor_alvo.Text);
+                DateTime dataAlvo = Convert.ToDateTime(goalDeadline.Value);
+                int id_utilizador = Convert.ToInt32(Session["UserId"]);
+
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("adicionar_objetivo", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@descricao", descricao);
+                        cmd.Parameters.AddWithValue("@valor_alvo", valorAlvo);
+                        cmd.Parameters.AddWithValue("@data_alvo", dataAlvo);
+                        cmd.Parameters.AddWithValue("@id_utilizador", id_utilizador);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                lbl_status.Text = "Objetivo adicionado com sucesso!";
+                lbl_status.CssClass = "text-success";
+
+                CarregarObjetivos();
+            }
+            catch (Exception ex)
+            {
+                lbl_status.Text = "Erro ao adicionar objetivo: " + ex.Message;
+                lbl_status.CssClass = "text-danger";
+            }
+
+        }
+
+
+
+        protected void btn_detalhe_objectivos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = (Button)sender;
+                string id_objetivo = btn.CommandArgument;
+                hf_id_objetivo.Value = id_objetivo;
+
+                if (!string.IsNullOrEmpty(id_objetivo))
+                {
+                    string query = "SELECT * FROM pft_objetivo WHERE id_objetivo = @id_objetivo";
+                    SqlCommand cmd = new SqlCommand(query, myConn);
+                    cmd.Parameters.AddWithValue("@id_objetivo", id_objetivo);
+
+                    myConn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        tb_descricao_detalhes.Text = dr["descricao"].ToString();
+                        tb_detalhes_valor_atual.Text = dr["valor_inicial"].ToString();
+                        tb_detalhes_valor_alvo.Text = dr["valor_alvo"].ToString();
+                        date_add_create.Value = Convert.ToDateTime(dr["data_criacao"]).ToString("yyyy-MM-dd");
+                        date_add_end.Value = Convert.ToDateTime(dr["data_alvo"]).ToString("yyyy-MM-dd");
+                    }
+
+                    myConn.Close();
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                lbl_status.Text = "Erro ao carregar os detalhes: " + ex.Message;
+                lbl_status.CssClass = "text-danger";
+            }
+            finally
+            {
+                if (myConn.State == ConnectionState.Open)
+                {
+                    myConn.Close();
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopDetails", "$('#detailsModal').modal('show');", true);
         }
 
         protected void btn_fechar_Click(object sender, EventArgs e)
@@ -75,6 +179,7 @@ namespace PFTracker
 
             // Manter o modal aberto
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#detailsModal').modal('show');", true);
+            
         }
 
         protected void btn_salvar_Click(object sender, EventArgs e)
@@ -108,6 +213,7 @@ namespace PFTracker
                         cmd.ExecuteNonQuery();
                     }
                 }
+                
 
                 // Mensagem de sucesso
                 lbl_status.Text = "Alterações salvas com sucesso!";
@@ -128,6 +234,7 @@ namespace PFTracker
 
                 // Atualizar a tabela
                 rpt_tabela_objetivos.DataBind();
+                Response.Redirect(Request.RawUrl);
             }
             catch (Exception ex)
             {
@@ -163,22 +270,65 @@ namespace PFTracker
             Response.Redirect(Request.RawUrl); // Atualiza a página
         }
 
+        protected void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            // Fechar o modal
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "PopClose", "$('#viewDetailsModal').modal('hide');", true);
+        }
+
         protected void btn_add_saldo_objectivos_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#addSaldoModal').modal('show');", true);
+
         }
 
         protected void btn_add_saldo_Click(object sender, EventArgs e)
         {
-            
-            myConn.Open();
-            SqlCommand cmd = new SqlCommand("INSERT INTO SaldoObjectivos (idObjectivo, saldo) VALUES (@idObjectivo, @saldo)", myConn);
-            cmd.Parameters.AddWithValue("@idObjectivo", Convert.ToInt32(hf_id_objetivo.Value));
-            cmd.Parameters.AddWithValue("@saldo", Convert.ToInt32(tb_add_saldo.Text));
-            cmd.ExecuteNonQuery();
-            myConn.Close();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#addSaldoModal').modal('hide');", true);
-            Response.Redirect(Request.RawUrl);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseAddSaldoModal", "$('#addSaldoModal').modal('hide');", true);
         }
+
+        protected void btn_confirmar_add_saldo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Recupera o ID do objetivo e o valor do saldo a ser adicionado
+                int objetivoId = Convert.ToInt32(hf_id_objetivo.Value);
+                decimal saldoAdicionar = Convert.ToDecimal(tb_add_saldo.Text.Replace(",", "."));
+
+                // Atualiza o valor_inicial no banco de dados
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
+                {
+                    string query = "UPDATE pft_objetivo SET valor_inicial = valor_inicial + @saldoAdicionar WHERE id_objetivo = @objetivoId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@saldoAdicionar", saldoAdicionar);
+                        cmd.Parameters.AddWithValue("@objetivoId", objetivoId);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // Exibe mensagem de sucesso
+                lbl_status.Text = "Saldo adicionado ao objetivo com sucesso!";
+                lbl_status.CssClass = "text-success";
+
+                // Atualiza a lista de objetivos
+                CarregarObjetivos();
+
+                // Fecha o modal
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseAddSaldoModal", "$('#addSaldoModal').modal('hide');", true);
+            }
+            catch (Exception ex)
+            {
+                // Exibe mensagem de erro
+                lbl_status.Text = "Erro ao adicionar saldo ao objetivo: " + ex.Message;
+                lbl_status.CssClass = "text-danger";
+
+                // Mantém o modal aberto para o usuário tentar novamente
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "KeepAddSaldoModal", "$('#addSaldoModal').modal('show');", true);
+            }
+        }
+
     }
 }
