@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Google.Apis.Auth;
+using System.Threading.Tasks;
 
 namespace PFTracker
 {
@@ -125,5 +127,77 @@ namespace PFTracker
             enc = enc.Replace("\\", "III");
             return enc;
         }
+
+
+        protected async void btn_google_Click(object sender, EventArgs e)
+        {
+            string idToken = Request.Form["id_token"]; //obter o token enviado pela API do Google
+            if (string.IsNullOrEmpty(idToken))
+            {
+                lbl_mensagem.Text = "Token de autenticação não recebido.";
+                return;
+            }
+
+            bool isValid = await ValidarGoogleTokenSync(idToken);
+
+            if (isValid)
+            {
+                // Exemplo: Obtenha informações do payload (email)
+                var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+                string email = payload.Email;
+
+                // Verifique se o utilizador já existe na base de dados
+                SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString);
+                SqlCommand myCommand = new SqlCommand("SELECT * FROM pft_utilizador WHERE email = @Email", myConn);
+                myCommand.Parameters.AddWithValue("@Email", email);
+
+                myConn.Open();
+                SqlDataReader reader = myCommand.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    // O utilizador já existe, autentique
+                    Session["Email"] = email;
+                    Session["Role"] = "user"; // Ajuste conforme o seu esquema
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                {
+                    // Novo utilizador, crie o registo
+                    reader.Close();
+                    myCommand.CommandText = "INSERT INTO pft_utilizador (email, ativo, google_auth) VALUES (@Email, 1, 1)";
+                    myCommand.ExecuteNonQuery();
+
+                    Session["Email"] = email;
+                    Session["Role"] = "user";
+                    Response.Redirect("Home.aspx");
+                }
+
+                myConn.Close();
+            }
+            else
+            {
+                lbl_mensagem.Text = "Falha na autenticação com Google.";
+            }
+        }
+        public async Task<bool> ValidarGoogleTokenSync(string idToken)
+        {
+            try
+            {
+                // Valida o token usando a biblioteca do Google
+                var payload = await GoogleJsonWebSignature.ValidateAsync(idToken); // Executa de forma síncrona
+                Console.WriteLine($"Usuário: {payload.Email}, Nome: {payload.Name}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao validar token: {ex.Message}");
+                lbl_mensagem.Text = $"Erro ao validar token: {ex.Message}";
+                return false;
+            }
+        }
+
+        
+
     }
 }
