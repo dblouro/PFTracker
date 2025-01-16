@@ -2,24 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <head runat="server">
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Perfil do Utilizador</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css" />
-    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css" />
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="/css/style.css" />
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="images/favicon.png" />
-</head>
+    
 <body>
     <form id="form1" runat="server">
         <div class="container-scroller">
@@ -31,7 +14,7 @@
                                 <h3 class="card-title text-left mb-3">Perfil do Utilizador</h3>
                                 <div>
                                     <div class="form-group">
-                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# "~/ImageHandler.ashx?id=" + Eval("cod_produto") %>'  BorderColor="Black" BorderWidth="1px" Height="250px" Width="250px" />
+                                         <asp:Image ID="Image1" runat="server" ImageUrl='<%# "~/ImageHandler.ashx?id=" + Eval("id_utilizador") %>'  BorderColor="Black" BorderWidth="1px" Height="250px" Width="250px" />
                                     </div>
                                     <div class="form-group">
                                         <label>Nome de Utilizador:</label>
@@ -48,7 +31,14 @@
                                     <div class="form-group">
                                         <label>Telemovel</label>
                                         <asp:TextBox ID="tb_movel" runat="server" class="form-control p_input" ReadOnly></asp:TextBox>
-
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Número de Identificação Fiscal</label>
+                                        <asp:TextBox ID="tb_nif" runat="server" class="form-control p_input" ReadOnly></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Morada</label>
+                                        <asp:TextBox ID="tb_morada" runat="server" class="form-control p_input" ReadOnly></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <label>Palavra-Passe</label>
@@ -68,7 +58,7 @@
                                         <asp:Label ID="lbl_mensagem" runat="server"></asp:Label>
                                     </div>
                                     <div class="text-center">
-                                        <asp:Button ID="btn_registar" runat="server" CssClass="btn btn-primary btn-block enter-btn" OnClick="btn_registar_Click" Text="Registar"/>
+                                        <asp:Button ID="btn_guardar" runat="server" CssClass="btn btn-primary btn-block enter-btn" OnClick="btn_guardar_Click" Text="Guardar"/>
                                     </div>
                                     <div class="d-flex">
                                         

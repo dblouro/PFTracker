@@ -21,7 +21,7 @@ namespace PFTracker
                     SqlConnection myConn = new SqlConnection(SqlDataSource1.ConnectionString);
 
                     // Verificar o perfil do utilizador
-                    string query = "SELECT cod_utilizador FROM LojaOnlineUtilizador WHERE cod_utilizador = @userId";
+                    string query = "SELECT id_utilizador FROM pft_utilizador WHERE id_utilizador = @userId";
 
                     SqlCommand cmd = new SqlCommand(query, myConn);
                     cmd.Parameters.AddWithValue("@userId", userId);
@@ -49,13 +49,13 @@ namespace PFTracker
             {
                 DataRowView dr = e.Item.DataItem as DataRowView;
                 //DataRowView dr = (DataRowView)e.Item.DataItem;
-                ((Label)e.Item.FindControl("lbl_num")).Text = dr["cod_utilizador"].ToString();
-                ((TextBox)e.Item.FindControl("tb_nome")).Text = dr["nome_utilizador"].ToString();
-                ((TextBox)e.Item.FindControl("tb_pw")).Text = dr["pw_utilizador"].ToString();
-                ((TextBox)e.Item.FindControl("tb_email")).Text = dr["email_utilizador"].ToString();
-                ((TextBox)e.Item.FindControl("tb_contacto")).Text = dr["tlm_utilizador"].ToString();
-                ((TextBox)e.Item.FindControl("tb_perfil")).Text = dr["cod_perfil"].ToString();
-                ((TextBox)e.Item.FindControl("tb_estado")).Text = dr["estado_utilizador"].ToString();
+                ((Label)e.Item.FindControl("lbl_num")).Text = dr["id_utilizador"].ToString();
+                ((TextBox)e.Item.FindControl("tb_nome")).Text = dr["nome"].ToString();
+                ((TextBox)e.Item.FindControl("tb_pw")).Text = dr["senha"].ToString();
+                ((TextBox)e.Item.FindControl("tb_email")).Text = dr["email"].ToString();
+                ((TextBox)e.Item.FindControl("tb_contacto")).Text = dr["telemovel"].ToString();
+                ((TextBox)e.Item.FindControl("tb_nif")).Text = dr["nif"].ToString();
+                ((TextBox)e.Item.FindControl("tb_morada")).Text = dr["morada"].ToString();
                 ((Button)e.Item.FindControl("btn_gravar")).CommandArgument = dr["cod_utilizador"].ToString();
                 ((Button)e.Item.FindControl("btn_apagar")).CommandArgument = dr["cod_utilizador"].ToString();
                 //((Button)e.Item.FindControl("btn_upload")).CommandArgument = dr["cod_utilizador"].ToString();
@@ -71,15 +71,17 @@ namespace PFTracker
             //se eu cliquei no botao gravar
             if (e.CommandName == "btn_gravar")
             {
-                string query = "UPDATE LojaOnlineUtilizador set ";
+                string query = "UPDATE pft_utilizador set ";
 
-                query += "nome_utilizador='" + ((TextBox)e.Item.FindControl("tb_nome")).Text + "',";
-                query += "pw_utilizador='" + ((TextBox)e.Item.FindControl("tb_pw")).Text + "',";
-                query += "email_utilizador='" + ((TextBox)e.Item.FindControl("tb_email")).Text + "' ";
-                query += "tlm_utilizador='" + ((TextBox)e.Item.FindControl("tb_contacto")).Text + "' ";
-                query += "cod_perfil='" + ((TextBox)e.Item.FindControl("tb_perfil")).Text + "' ";
-                query += "estado_utilizador='" + ((TextBox)e.Item.FindControl("tb_estado")).Text + "' ";
-                query += "WHERE cod_utilizador=" + ((Button)e.Item.FindControl("btn_gravar")).CommandArgument;
+                query += "nome='" + ((TextBox)e.Item.FindControl("tb_nome")).Text + "',";
+                query += "senha='" + ((TextBox)e.Item.FindControl("tb_pw")).Text + "',";
+                query += "email='" + ((TextBox)e.Item.FindControl("tb_email")).Text + "' ";
+                query += "telemovel='" + ((TextBox)e.Item.FindControl("tb_contacto")).Text + "' ";
+                query += "nif='" + ((TextBox)e.Item.FindControl("tb_nif")).Text + "' ";
+                query += "tipo_perfil='" + ((TextBox)e.Item.FindControl("tb_perfil")).Text + "' ";
+                query += "ativo='" + ((TextBox)e.Item.FindControl("tb_estado")).Text + "' ";
+                query += "morada='" + ((TextBox)e.Item.FindControl("tb_morada")).Text + "' ";
+                query += "WHERE id_utilizador=" + ((Button)e.Item.FindControl("btn_gravar")).CommandArgument;
 
                 SqlCommand myCommand = new SqlCommand(query, myConn);
                 myCommand.ExecuteNonQuery();
@@ -87,34 +89,17 @@ namespace PFTracker
             //se eu cliquei no botao apagar
             else if (e.CommandName == "btn_apagar")
             {
-                string query = "DELETE FROM LojaOnlineUtilizador ";
+                string query = "DELETE FROM pft_utilizador ";
                 //string query2 = "DELETE FROM formandos WHERE num_formando=" + ((Button)e.Item.FindControl("btn_apagar")).CommandArgument;
 
                 //query += "nome='" + ((TextBox)e.Item.FindControl("tb_nome")).Text + "',";
                 //query += "idade='" + ((TextBox)e.Item.FindControl("tb_idade")).Text + "',";
                 //query += "curso='" + ((TextBox)e.Item.FindControl("tb_curso")).Text + "' ";
-                query += "WHERE cod_utilizador=" + ((Button)e.Item.FindControl("btn_apagar")).CommandArgument;
+                query += "WHERE id_utilizador=" + ((Button)e.Item.FindControl("btn_apagar")).CommandArgument;
 
                 SqlCommand myCommand = new SqlCommand(query, myConn);
                 myCommand.ExecuteNonQuery();
             }
-            /*else if (e.CommandName == "btn_upload")
-            {
-                // Obtém o número do formando a partir do CommandArgument do botão clicado
-                int numFormando = Convert.ToInt32(e.CommandArgument);
-                // Localiza o controle FileUpload dentro do item do Repeater
-                FileUpload fileUpload = (FileUpload)e.Item.FindControl("FileUpload1");
-                // Obtém os bytes da foto carregada
-                byte[] fotoData = fileUpload.FileBytes;
-
-                string query3 = "UPDATE formandos SET foto = @foto WHERE num_formando = @num_formando";
-                SqlCommand myCommand = new SqlCommand(query3, myConn);
-                myCommand.Parameters.AddWithValue("@foto", fotoData);
-                myCommand.Parameters.AddWithValue("@num_formando", numFormando);
-
-                myCommand.ExecuteNonQuery();
-
-            }*/
             myConn.Close();
         }
 
@@ -131,14 +116,15 @@ namespace PFTracker
             {
                 if (formando.ItemType == ListItemType.Item || formando.ItemType == ListItemType.AlternatingItem)
                 {
-                    string queryUpdate = "UPDATE formandos set ";
-                    queryUpdate += "nome_utilizador='" + ((TextBox)formando.FindControl("tb_nome")).Text + "',";
-                    queryUpdate += "pw_utilizador='" + ((TextBox)formando.FindControl("tb_pw")).Text + "',";
-                    queryUpdate += "email_utilizador='" + ((TextBox)formando.FindControl("tb_email")).Text + "'";
-                    queryUpdate += "tlm_utilizador='" + ((TextBox)formando.FindControl("tb_contacto")).Text + "' ";
-                    queryUpdate += "cod_perfil='" + ((TextBox)formando.FindControl("tb_perfil")).Text + "' ";
-                    queryUpdate += "estado_utilizador='" + ((TextBox)formando.FindControl("tb_estado")).Text + "' ";
-                    queryUpdate += " WHERE num_formando=" + ((Label)formando.FindControl("lbl_num")).Text;
+                    string queryUpdate = "UPDATE pft_utilizador set ";
+                    queryUpdate += "nome='" + ((TextBox)formando.FindControl("tb_nome")).Text + "',";
+                    queryUpdate += "senha='" + ((TextBox)formando.FindControl("tb_pw")).Text + "',";
+                    queryUpdate += "email='" + ((TextBox)formando.FindControl("tb_email")).Text + "'";
+                    queryUpdate += "telemovel='" + ((TextBox)formando.FindControl("tb_contacto")).Text + "' ";
+                    queryUpdate += "tipo_perfil='" + ((TextBox)formando.FindControl("tb_perfil")).Text + "' ";
+                    queryUpdate += "ativo='" + ((TextBox)formando.FindControl("tb_estado")).Text + "' ";
+                    queryUpdate += "morada='" + ((TextBox)formando.FindControl("tb_morada")).Text + "' ";
+                    queryUpdate += " WHERE id_utilizador=" + ((Label)formando.FindControl("lbl_num")).Text;
 
                     myCommand = new SqlCommand(queryUpdate, myConn);
                     myCommand.ExecuteNonQuery();
