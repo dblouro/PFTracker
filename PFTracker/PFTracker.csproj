@@ -312,7 +312,6 @@
     <Content Include="js\x-editable.js" />
     <Content Include="Login.aspx" />
     <Content Include="Objectivos.aspx" />
-    <Content Include="Pagina_de_teste.aspx" />
     <Content Include="PerfilUtilizador.aspx" />
     <Content Include="RecoverPW.aspx" />
     <Content Include="Register.aspx" />
@@ -910,13 +909,6 @@
     </Compile>
     <Compile Include="Objectivos.aspx.designer.cs">
       <DependentUpon>Objectivos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pagina_de_teste.aspx.cs">
-      <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pagina_de_teste.aspx.designer.cs">
-      <DependentUpon>Pagina_de_teste.aspx</DependentUpon>
     </Compile>
     <Compile Include="PerfilUtilizador.aspx.cs">
       <DependentUpon>PerfilUtilizador.aspx</DependentUpon>

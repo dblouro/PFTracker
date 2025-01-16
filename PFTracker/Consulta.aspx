@@ -59,7 +59,7 @@
                             <td><%# Eval("valor") %></td>
                             <td><%# Eval("tipo_transacao") %></td>
                             <td>
-                                <asp:Button ID="btn_ver" runat="server" Text="Ver Detalhes" CommandArgument='<%# Eval("id_transacao") %>' OnClick="btn_ver_Click" /></td>
+                                <asp:Button ID="btn_ver" runat="server" Text="Ver Detalhes" CommandArgument='<%# Eval("id_transacao") %>' OnClick="btn_ver_Click" class="btn btn-primary btn-block mt-2"/></td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
