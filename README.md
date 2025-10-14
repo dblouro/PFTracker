@@ -1,6 +1,6 @@
 ﻿# 💰 PFTracker – Personal Finance Tracker
 
-### 🎓 Projeto Final | ATEC - Curso de Especialização Tecnológica em Programação
+### 🎓 Projeto Final | 
 
 ![ASP.NET](https://img.shields.io/badge/ASP.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
@@ -55,7 +55,7 @@ O **PFTracker – Personal Finance Tracker** tem como finalidade a criação de 
 ## 📬 Contacto
 
 Caso pretendas saber mais sobre o projeto:  
-📧 **diogo.louro@...**  
+📧 **dblouro@outlook.com**  
 🔗 [GitHub: dblouro](https://github.com/dblouro)
 
 ---
