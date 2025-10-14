@@ -24,7 +24,7 @@ namespace PFTracker
         {
             try
             {
-                using (SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["pftrackerConnectionString_Categorias"].ConnectionString))
+                using (SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["atec_cascaisConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCommand = new SqlCommand("pft_login_perfil", myConn))
                     {
