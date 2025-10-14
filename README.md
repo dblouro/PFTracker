@@ -50,6 +50,8 @@ O **PFTracker – Personal Finance Tracker** tem como finalidade a criação de 
 📸 *[Adicionar aqui imagens ou gifs da aplicação quando disponível]*  
 💡 Exemplo: página de login, dashboard de gráficos, formulário de transações.
 
+![PFTracker Login Screenshot](PFTracker/demo/login.png)
+
 ---
 
 ## 📬 Contacto
