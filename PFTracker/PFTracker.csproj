@@ -1101,6 +1101,7 @@
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.ttf" />
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff" />
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

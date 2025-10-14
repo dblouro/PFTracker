@@ -140,19 +140,25 @@ namespace PFTracker
 
                 try
                 {
-                    m.From = new MailAddress("Diogo.Louro.T0127776@edu.atec.pt");
+                    string smtpUser = Environment.GetEnvironmentVariable("SMTP_USER");
+                    string smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS");
+
+                    //m.From = new MailAddress("Diogo.Louro.T0127776@edu.atec.pt");
+                    m.From = new MailAddress(smtpUser);
                     m.To.Add(new MailAddress(tb_email.Text));
                     m.Subject = "Ativação de conta";
                     m.IsBodyHtml = true;
-
                     m.Body = $"A sua conta foi ativada, clique <a href='https://localhost:44321/Login.aspx?util={EncryptString(tb_utilizador.Text)}' >aqui</a>";
 
-                    sc.Host = "smtp.office365.com";
+                    //sc.Host = "smtp.office365.com";
                     //sc.Host = "smtp-mail.outlook.com";
-                    sc.Port = 587;
-                    sc.Credentials = new System.Net.NetworkCredential("Diogo.Louro.T0127776@edu.atec.pt", "sPsrA3zp");
+                    //sc.Port = 587;
+                    sc.Host = ConfigurationManager.AppSettings["SmtpHost"];
+                    sc.Port = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+                    sc.Credentials = new System.Net.NetworkCredential(smtpUser, smtpPass);
 
                     sc.EnableSsl = true;
+
                     sc.Send(m);
                 }
                 catch (Exception ex)
