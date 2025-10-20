@@ -64,7 +64,6 @@ The **PFTracker – Personal Finance Tracker** purpose is to create a financial 
 📧 **dblouro@outlook.com** 
 
 If you would like to know more about the project: 
-📧 **dblouro@outlook.com**  
 🔗 [GitHub: dblouro](https://github.com/dblouro) 
 🔗 [GitHub: runniOp](https://github.com/runniOp)
 
