@@ -1,6 +1,6 @@
 ﻿# 💰 PFTracker – Personal Finance Tracker
 
-### 🎓 Projeto Final | 
+### 🎓 Academic Project
 
 ![ASP.NET](https://img.shields.io/badge/ASP.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
@@ -9,45 +9,45 @@
 
 ---
 
-## 🧭 Objetivo Geral
+## 🧭 Objective
 
-O **PFTracker – Personal Finance Tracker** tem como finalidade a criação de um sistema de controlo financeiro, desenvolvido em **plataforma web acessível e intuitiva**, que permite aos utilizadores gerir as suas **finanças pessoais**, registando receitas e despesas, e classificando as transações de forma clara e eficiente.
+The **PFTracker – Personal Finance Tracker** purpose is to create a financial control system wich allows the user to manage their personal finances, recording incomes and expenses, and classifying transactions for posterior analysis.
 
 ---
 
-## 🧑‍🤝‍🧑 Equipa de Desenvolvimento
+## 🧑‍🤝‍🧑 Dev Team
 
-| Nome |
+| Name |
 |------|
 | Diogo Louro
 | Ricardo Conceição
 
 ---
 
-## ⚙️ Funcionalidades Principais
+## ⚙️ Main Features
 
-✅ **Registo e autenticação de utilizadores** com ativação via email  
-✅ **Gestão de transações financeiras** (registo, edição e remoção de receitas/despesas)  
-✅ **Criação de objetivos de poupança**  
-✅ **Classificação e categorização de despesas**  
-✅ **Relatórios e gráficos financeiros dinâmicos**  
-✅ **Design responsivo e intuitivo**, adaptado a diferentes dispositivos  
+✅ **User registration and authentication** with email activation
+✅ **Financial transaction management** (recording, editing, and removing income/expenses)  
+✅ **Creation of savings goals**  
+✅ **Classification and categorization of expenses**  
+✅ **Dynamic financial reports and graphs**  
+✅ **Responsive and intuitive design**, adapted to different devices 
 
 ---
 
-## 🗃️ Tecnologias Utilizadas
+## 🗃️ Tech Stack
 
-- **Linguagem:** C#  
+- **Language:** C#  
 - **Framework:** ASP.NET WebForms  
-- **Base de Dados:** Microsoft SQL Server  
-- **Estilos:** Bootstrap  
-- **Ferramentas de Desenvolvimento:** Visual Studio, Git, GitHub  
+- **Database:** Microsoft SQL Server  
+- **Styles:** Bootstrap  
+- **Development Tools:** Visual Studio, Git, GitHub 
 
 ---
 
-## 🖥️ Demonstração
+## 🖥️ Demo
 
-📸 Exemplo: página de login, dashboard de gráficos, formulário de transações. 
+📸 Example: login page, dashboard, transaction form. 
 
 <p align="center">
   <img src="PFTracker/demo/login.png" width="30%">
@@ -60,13 +60,15 @@ O **PFTracker – Personal Finance Tracker** tem como finalidade a criação de 
 
 ---
 
-## 📬 Contacto
+## 📬 Contact
 
-Caso pretendas saber mais sobre o projeto:  
+If you would like to know more about the project: 
 📧 **dblouro@outlook.com**  
 🔗 [GitHub: dblouro](https://github.com/dblouro)
+📧 **dblouro@outlook.com**  
+🔗 [GitHub: runniOp](https://github.com/runniOp)
 
 ---
 
-> “A organização financeira é o primeiro passo para a liberdade pessoal.”  
+> “Financial organization is the first step towards personal freedom.”  
 > — PFTracker Team 💡
